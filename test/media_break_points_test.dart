@@ -142,9 +142,9 @@ void main() {
     await tester.pumpWidget(MaterialApp(
       home: Builder(
         builder: (BuildContext context) {
-          String _test_value = "value for extra large";
-          test = valueFor<String>(context, xl: _test_value);
-          expect(_test_value, test);
+          String testValue = "value for extra large";
+          test = valueFor<String>(context, xl: testValue);
+          expect(testValue, test);
           return Placeholder();
         },
       ),

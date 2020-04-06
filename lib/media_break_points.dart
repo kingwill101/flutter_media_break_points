@@ -27,31 +27,31 @@ bool valBetween(double val, double start, double end) {
 }
 
 ///if screen is xs
-bool is_xs(BuildContext context) {
+bool isXs(BuildContext context) {
   return valBetween(
       MediaQuery.of(context).size.width, extraSmallStart, extraSmallEnd);
 }
 
 ///if screen is sm
-bool is_sm(BuildContext context) {
+bool isSm(BuildContext context) {
   return valBetween(MediaQuery.of(context).size.width, mobileBreakPointStart,
       mobileBreakPointEnd);
 }
 
 ///if screen is md
-bool is_md(BuildContext context) {
+bool isMd(BuildContext context) {
   return valBetween(MediaQuery.of(context).size.width, tabletBreakPointStart,
       tabletBreakPointEnd);
 }
 
 ///if screen is lg
-bool is_lg(BuildContext context) {
+bool isLg(BuildContext context) {
   return valBetween(MediaQuery.of(context).size.width, desktopBreakPointStart,
       desktopBreakPointEnd);
 }
 
 ///if screen is xl
-bool is_xl(BuildContext context) {
+bool isXl(BuildContext context) {
   return MediaQuery.of(context).size.width >= wideScreenBreakPointStart;
 }
 
@@ -68,19 +68,19 @@ bool is_xl(BuildContext context) {
 /// )
 /// ```
 T valueFor<T>(BuildContext context, {T xs, T sm, T md, T lg, T xl}) {
-  if (is_xs(context)) {
+  if (isXs(context)) {
     return xs;
   }
-  if (is_sm(context)) {
+  if (isSm(context)) {
     return sm;
   }
-  if (is_md(context)) {
+  if (isMd(context)) {
     return md;
   }
-  if (is_lg(context)) {
+  if (isLg(context)) {
     return lg;
   }
-  if (is_xl(context)) {
+  if (isXl(context)) {
     return xl;
   }
   return null;
@@ -89,19 +89,19 @@ T valueFor<T>(BuildContext context, {T xs, T sm, T md, T lg, T xl}) {
 ///return string representation of screen size
 String strRep<T>(BuildContext context) {
   String _size = MediaQuery.of(context).size.toString();
-  if (is_xs(context)) {
+  if (isXs(context)) {
     return "xs: $_size";
   }
-  if (is_sm(context)) {
+  if (isSm(context)) {
     return "sm: $_size";
   }
-  if (is_md(context)) {
+  if (isMd(context)) {
     return "md: $_size";
   }
-  if (is_lg(context)) {
+  if (isLg(context)) {
     return "lg: $_size";
   }
-  if (is_xl(context)) {
+  if (isXl(context)) {
     return "xl: $_size";
   }
   return "unknown: $_size";
