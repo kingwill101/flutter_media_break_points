@@ -12,3 +12,6 @@ update examples
 
 ## [0.2.0]
 `defaultValue` parameter to `valueFor`
+
+## [0.2.1]
+add MIT license
