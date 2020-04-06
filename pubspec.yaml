@@ -1,5 +1,5 @@
 name: media_break_points
-description: Apply breakpoints per media breakoints
+description: Apply values per media breakpoints.
 version: 0.1
 author: Glenford Williams
 homepage: https://github.com/glenfordwilliams/flutter_media_break_points
