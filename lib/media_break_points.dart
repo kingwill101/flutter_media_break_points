@@ -64,7 +64,7 @@ bool isXl(BuildContext context) {
 /// [md] - between [tabletBreakPointStart] and [tabletBreakPointEnd]
 /// [lg] - between [desktopBreakPointStart] and [desktopBreakPointEnd]
 /// [xl] - viewports above [wideScreenBreakPointStart]
-///
+/// [defaultValue] the default value to return if a breakpoint value isn't set
 /// ```dart
 /// Container c = Container(
 /// padding: valueFor<EdgeInsetGeometry>(

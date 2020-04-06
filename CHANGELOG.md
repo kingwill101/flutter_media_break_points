@@ -9,3 +9,6 @@ cleanup for publishing
 ## [0.1.4]
 
 update examples
+
+## [0.2.0]
+`defaultValue` parameter to `valueFor`
