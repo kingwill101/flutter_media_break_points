@@ -1,8 +1,8 @@
 name: media_break_points
 description: Apply breakpoints per media breakoints
-version: 0.0.1
-author:
-homepage:
+version: 0.1
+author: Glenford Williams
+homepage: https://github.com/glenfordwilliams/flutter_media_break_points
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
