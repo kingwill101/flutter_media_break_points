@@ -56,6 +56,7 @@ bool is_xl(BuildContext context) {
 }
 
 /// Returns value corresponding to current breakpoint
+/// returns [null] if corresponding breakpoint is not provided
 ///
 /// ```dart
 /// Container c = Container(

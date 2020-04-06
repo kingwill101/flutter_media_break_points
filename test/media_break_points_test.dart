@@ -11,6 +11,7 @@ const _d = {
   "lg": 40,
   "xl": 50,
 };
+
 EdgeInsets _testData(BuildContext context) {
   return valueFor<EdgeInsets>(
     context,
@@ -23,8 +24,6 @@ EdgeInsets _testData(BuildContext context) {
 }
 
 void main() {
-
-
   testWidgets('xs', (WidgetTester tester) async {
     EdgeInsets _g;
     EdgeInsets _g2;
@@ -50,7 +49,8 @@ void main() {
     EdgeInsets _g;
     EdgeInsets _g2;
 
-    tester.binding.window.physicalSizeTestValue = Size(mobileBreakPointStart, 200);
+    tester.binding.window.physicalSizeTestValue =
+        Size(mobileBreakPointStart, 200);
     tester.binding.window.devicePixelRatioTestValue = 1.0;
     // resets the screen to its orinal size after the test end
     await tester.pumpWidget(MaterialApp(
@@ -71,7 +71,8 @@ void main() {
     EdgeInsets _g;
     EdgeInsets _g2;
 
-    tester.binding.window.physicalSizeTestValue = Size(tabletBreakPointEnd, 200);
+    tester.binding.window.physicalSizeTestValue =
+        Size(tabletBreakPointEnd, 200);
     tester.binding.window.devicePixelRatioTestValue = 1.0;
     // resets the screen to its orinal size after the test end
     await tester.pumpWidget(MaterialApp(
@@ -92,7 +93,8 @@ void main() {
     EdgeInsets _g;
     EdgeInsets _g2;
 
-    tester.binding.window.physicalSizeTestValue = Size(desktopBreakPointStart, 200);
+    tester.binding.window.physicalSizeTestValue =
+        Size(desktopBreakPointStart, 200);
     tester.binding.window.devicePixelRatioTestValue = 1.0;
     // resets the screen to its orinal size after the test end
     await tester.pumpWidget(MaterialApp(
@@ -112,7 +114,8 @@ void main() {
     EdgeInsets _g;
     EdgeInsets _g2;
 
-    tester.binding.window.physicalSizeTestValue = Size(wideScreenBreakPointStart, 200);
+    tester.binding.window.physicalSizeTestValue =
+        Size(wideScreenBreakPointStart, 200);
     tester.binding.window.devicePixelRatioTestValue = 1.0;
     // resets the screen to its orinal size after the test end
     await tester.pumpWidget(MaterialApp(
@@ -122,6 +125,26 @@ void main() {
           _g2 = _testData(context);
           expect(_g, null);
           expect(_d["xl"], _g2.left);
+          return Placeholder();
+        },
+      ),
+    ));
+    addTearDown(tester.binding.window.clearPhysicalSizeTestValue);
+  });
+
+  testWidgets('xl', (WidgetTester tester) async {
+    String test;
+
+    tester.binding.window.physicalSizeTestValue =
+        Size(wideScreenBreakPointStart, 200);
+    tester.binding.window.devicePixelRatioTestValue = 1.0;
+    // resets the screen to its orinal size after the test end
+    await tester.pumpWidget(MaterialApp(
+      home: Builder(
+        builder: (BuildContext context) {
+          String _test_value = "value for extra large";
+          test = valueFor<String>(context, xl: _test_value);
+          expect(_test_value, test);
           return Placeholder();
         },
       ),
