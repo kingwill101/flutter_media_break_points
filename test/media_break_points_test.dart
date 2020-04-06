@@ -151,4 +151,24 @@ void main() {
     ));
     addTearDown(tester.binding.window.clearPhysicalSizeTestValue);
   });
+
+  testWidgets('default value test', (WidgetTester tester) async {
+    String test;
+
+    tester.binding.window.physicalSizeTestValue =
+        Size(wideScreenBreakPointStart, 200);
+    tester.binding.window.devicePixelRatioTestValue = 1.0;
+    // resets the screen to its orinal size after the test end
+    await tester.pumpWidget(MaterialApp(
+      home: Builder(
+        builder: (BuildContext context) {
+          String testValue = "default";
+          test = valueFor<String>(context, defaultValue: testValue);
+          expect(testValue, test);
+          return Placeholder();
+        },
+      ),
+    ));
+    addTearDown(tester.binding.window.clearPhysicalSizeTestValue);
+  });
 }

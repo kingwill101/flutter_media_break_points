@@ -56,7 +56,14 @@ bool isXl(BuildContext context) {
 }
 
 /// Returns value corresponding to current breakpoint
-/// returns [null] if corresponding breakpoint is not provided
+/// if corresponding breakpoint is not provided or [defaultValue] if  a
+///  default value is provided provided
+/// optional breakpoints include
+/// [xs] - between [extraSmallStart] and [extraSmallEnd
+/// [sm] - between [mobileBreakPointStart] and [mobileBreakPointEnd]
+/// [md] - between [tabletBreakPointStart] and [tabletBreakPointEnd]
+/// [lg] - between [desktopBreakPointStart] and [desktopBreakPointEnd]
+/// [xl] - viewports above [wideScreenBreakPointStart]
 ///
 /// ```dart
 /// Container c = Container(
@@ -67,21 +74,27 @@ bool isXl(BuildContext context) {
 /// );
 /// )
 /// ```
-T valueFor<T>(BuildContext context, {T xs, T sm, T md, T lg, T xl}) {
-  if (isXs(context)) {
+///
+T valueFor<T>(BuildContext context,
+    {T xs, T sm, T md, T lg, T xl, T defaultValue}) {
+  if (xs != null && isXs(context)) {
     return xs;
   }
-  if (isSm(context)) {
+  if (sm != null && isSm(context)) {
     return sm;
   }
-  if (isMd(context)) {
+  if (md != null && isMd(context)) {
     return md;
   }
-  if (isLg(context)) {
+  if (lg != null && isLg(context)) {
     return lg;
   }
-  if (isXl(context)) {
+  if (xl != null && isXl(context)) {
     return xl;
+  }
+
+  if (defaultValue != null) {
+    return defaultValue;
   }
   return null;
 }
