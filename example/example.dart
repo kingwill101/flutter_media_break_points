@@ -16,29 +16,39 @@ class MyApp extends StatelessWidget {
         appBar: AppBar(
           title: Text("Example breakpoints"),
         ),
-        body: Center(
-          child: Column(
-            children: <Widget>[
-              Container(
-                  color: Colors.red,
-                  margin: valueFor<EdgeInsets>(
+        body: LayoutBuilder(builder: (context, constraints) {
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Container(
+                  color: valueFor<Color>(context,
+                      xs: Colors.red,
+                      sm: Colors.green,
+                      md: Colors.black,
+                      lg: Colors.purple,
+                      xl: Colors.yellow),
+                  width: valueFor<double>(
                     context,
-                    xs: EdgeInsets.only(left: 25),
-                    md: EdgeInsets.only(left: 50),
-                    lg: EdgeInsets.only(left: 75),
-                  )),
-              Container(
-                color: Colors.blue,
-                padding: valueFor<EdgeInsets>(
-                  context,
-                  xs: EdgeInsets.only(right: 20),
-                  md: EdgeInsets.only(right: 40),
-                  lg: EdgeInsets.only(right: 60),
+                    xs: 100,
+                    sm: 200,
+                    md: 300,
+                    lg: 400,
+                    xl: 500,
+                  ),
+                  height: valueFor<double>(
+                    context,
+                    xs: 400,
+                    sm: 300,
+                    md: 200,
+                    lg: 100,
+                    xl: 50,
+                  ),
                 ),
-              ),
-            ],
-          ),
-        ),
+              ],
+            ),
+          );
+        }),
       ),
     );
   }

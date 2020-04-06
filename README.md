@@ -1,11 +1,9 @@
-# media_break_points
-
 Apply values per media breakpoints. Breakpoints are similar to the breakpoints used in 
 bootstrap css framework.
 https://getbootstrap.com/docs/4.1/layout/overview/#responsive-breakpoints
 
 ### example
-
+![Media Breakpoint demo](example/example.gif)
 ```dart
 Container c = Container(
     padding: valueFor<EdgeInsetGeometry>(
