@@ -12,7 +12,7 @@ const _d = {
   "xl": 50,
 };
 
-EdgeInsets _testData(BuildContext context) {
+EdgeInsets? _testData(BuildContext context) {
   return valueFor<EdgeInsets>(
     context,
     sm: const EdgeInsets.only(left: 10),
@@ -25,8 +25,8 @@ EdgeInsets _testData(BuildContext context) {
 
 void main() {
   testWidgets('xs', (WidgetTester tester) async {
-    EdgeInsets _g;
-    EdgeInsets _g2;
+    EdgeInsets? _g;
+    EdgeInsets? _g2;
 
     tester.binding.window.physicalSizeTestValue = Size(extraSmallEnd, 200);
     tester.binding.window.devicePixelRatioTestValue = 1.0;
@@ -37,7 +37,7 @@ void main() {
           _g = valueFor<EdgeInsets>(context);
           _g2 = _testData(context);
           expect(_g, null);
-          expect(_d["xs"], _g2.left);
+          expect(_d["xs"], _g2!.left);
           return Placeholder();
         },
       ),
@@ -46,8 +46,8 @@ void main() {
   });
 
   testWidgets('sm', (WidgetTester tester) async {
-    EdgeInsets _g;
-    EdgeInsets _g2;
+    EdgeInsets? _g;
+    EdgeInsets? _g2;
 
     tester.binding.window.physicalSizeTestValue =
         Size(mobileBreakPointStart, 200);
@@ -59,7 +59,7 @@ void main() {
           _g = valueFor<EdgeInsets>(context);
           _g2 = _testData(context);
           expect(_g, null);
-          expect(_d["sm"], _g2.left);
+          expect(_d["sm"], _g2!.left);
           return Placeholder();
         },
       ),
@@ -68,8 +68,8 @@ void main() {
   });
 
   testWidgets('md', (WidgetTester tester) async {
-    EdgeInsets _g;
-    EdgeInsets _g2;
+    EdgeInsets? _g;
+    EdgeInsets? _g2;
 
     tester.binding.window.physicalSizeTestValue =
         Size(tabletBreakPointEnd, 200);
@@ -81,7 +81,7 @@ void main() {
           _g = valueFor<EdgeInsets>(context);
           _g2 = _testData(context);
           expect(_g, null);
-          expect(_d["md"], _g2.left);
+          expect(_d["md"], _g2!.left);
           return Placeholder();
         },
       ),
@@ -90,8 +90,8 @@ void main() {
   });
 
   testWidgets('lg', (WidgetTester tester) async {
-    EdgeInsets _g;
-    EdgeInsets _g2;
+    EdgeInsets? _g;
+    EdgeInsets? _g2;
 
     tester.binding.window.physicalSizeTestValue =
         Size(desktopBreakPointStart, 200);
@@ -103,7 +103,7 @@ void main() {
           _g = valueFor<EdgeInsets>(context);
           _g2 = _testData(context);
           expect(_g, null);
-          expect(_d["lg"], _g2.left);
+          expect(_d["lg"], _g2!.left);
           return Placeholder();
         },
       ),
@@ -111,8 +111,8 @@ void main() {
     addTearDown(tester.binding.window.clearPhysicalSizeTestValue);
   });
   testWidgets('xl', (WidgetTester tester) async {
-    EdgeInsets _g;
-    EdgeInsets _g2;
+    EdgeInsets? _g;
+    EdgeInsets? _g2;
 
     tester.binding.window.physicalSizeTestValue =
         Size(wideScreenBreakPointStart, 200);
@@ -124,7 +124,7 @@ void main() {
           _g = valueFor<EdgeInsets>(context);
           _g2 = _testData(context);
           expect(_g, null);
-          expect(_d["xl"], _g2.left);
+          expect(_d["xl"], _g2!.left);
           return Placeholder();
         },
       ),
@@ -133,7 +133,7 @@ void main() {
   });
 
   testWidgets('xl', (WidgetTester tester) async {
-    String test;
+    String? test;
 
     tester.binding.window.physicalSizeTestValue =
         Size(wideScreenBreakPointStart, 200);
@@ -153,7 +153,7 @@ void main() {
   });
 
   testWidgets('default value test', (WidgetTester tester) async {
-    String test;
+    String? test;
 
     tester.binding.window.physicalSizeTestValue =
         Size(wideScreenBreakPointStart, 200);

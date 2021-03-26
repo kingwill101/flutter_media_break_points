@@ -1,10 +1,10 @@
 name: media_break_points
 description: This package allows you to apply values depending on media breakpoint provided.
-version: 0.2.1
+version: 0.3.0
 homepage: https://github.com/glenfordwilliams/flutter_media_break_points
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: '>=2.12.0 <3.0.0'
 
 dependencies:
   flutter:

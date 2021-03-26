@@ -75,8 +75,8 @@ bool isXl(BuildContext context) {
 /// )
 /// ```
 ///
-T valueFor<T>(BuildContext context,
-    {T xs, T sm, T md, T lg, T xl, T defaultValue}) {
+T? valueFor<T>(BuildContext context,
+    {T? xs, T? sm, T? md, T? lg, T? xl, T? defaultValue}) {
   if (xs != null && isXs(context)) {
     return xs;
   }
