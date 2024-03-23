@@ -49,7 +49,10 @@ class _AdaptiveContainerState extends State<AdaptiveContainer> {
   BreakPoint? _currentBreakpoint;
   bool hasConfig(BreakPoint breakPoint) =>
       widget.configs.containsKey(breakPoint);
-  AdaptiveSlot config(BreakPoint breakPoint) => widget.configs[breakPoint]!;
+  AdaptiveSlot config(BreakPoint breakPoint) =>
+      widget.configs[breakPoint] != null
+          ? widget.configs[breakPoint]!
+          : AdaptiveSlot(builder: (_) => SizedBox.shrink());
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +61,7 @@ class _AdaptiveContainerState extends State<AdaptiveContainer> {
       builder: (context, constraints) {
         final bp = contextToBreakPoint(context);
 
-      // Schedule a callback for the end of this frame to update the state
+        // Schedule a callback for the end of this frame to update the state
         WidgetsBinding.instance.addPostFrameCallback((_) {
           if (_currentBreakpoint == null || bp != _currentBreakpoint) {
             setState(() {
@@ -72,7 +75,6 @@ class _AdaptiveContainerState extends State<AdaptiveContainer> {
           duration: const Duration(milliseconds: 300),
           child: hasConfig(bp) ? config(bp) : SizedBox.shrink(),
           transitionBuilder: (Widget child, Animation<double> animation) {
-            
             return FadeTransition(child: child, opacity: animation);
           },
         );

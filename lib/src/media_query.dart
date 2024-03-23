@@ -53,8 +53,9 @@ bool isLg(BuildContext context) {
 
 ///if screen is xl
 bool isXl(BuildContext context) {
-  return valBetween(MediaQuery.of(context).size.width,
-      wideScreenBreakPointStart, extraWideScreenBreakPointStart);
+  final width = MediaQuery.of(context).size.width;
+  return width >= wideScreenBreakPointStart &&
+      width < extraWideScreenBreakPointStart;
 }
 
 ///if screen is xxl
