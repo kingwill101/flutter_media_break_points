@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
-
+import 'shared.dart';
 import 'package:media_break_points/media_break_points.dart';
 
 const _d = {
@@ -28,8 +28,8 @@ void main() {
     EdgeInsets? _g;
     EdgeInsets? _g2;
 
-    tester.binding.window.physicalSizeTestValue = Size(extraSmallEnd, 200);
-    tester.binding.window.devicePixelRatioTestValue = 1.0;
+    setScreenSize(tester, extraSmallEnd);
+
     // resets the screen to its orinal size after the test end
     await tester.pumpWidget(MaterialApp(
       home: Builder(
@@ -49,9 +49,7 @@ void main() {
     EdgeInsets? _g;
     EdgeInsets? _g2;
 
-    tester.binding.window.physicalSizeTestValue =
-        Size(mobileBreakPointStart, 200);
-    tester.binding.window.devicePixelRatioTestValue = 1.0;
+    setScreenSize(tester, mobileBreakPointStart);
     // resets the screen to its orinal size after the test end
     await tester.pumpWidget(MaterialApp(
       home: Builder(
@@ -71,9 +69,7 @@ void main() {
     EdgeInsets? _g;
     EdgeInsets? _g2;
 
-    tester.binding.window.physicalSizeTestValue =
-        Size(tabletBreakPointEnd, 200);
-    tester.binding.window.devicePixelRatioTestValue = 1.0;
+    setScreenSize(tester, tabletBreakPointEnd);
     // resets the screen to its orinal size after the test end
     await tester.pumpWidget(MaterialApp(
       home: Builder(
@@ -93,9 +89,7 @@ void main() {
     EdgeInsets? _g;
     EdgeInsets? _g2;
 
-    tester.binding.window.physicalSizeTestValue =
-        Size(desktopBreakPointStart, 200);
-    tester.binding.window.devicePixelRatioTestValue = 1.0;
+    setScreenSize(tester, desktopBreakPointStart);
     // resets the screen to its orinal size after the test end
     await tester.pumpWidget(MaterialApp(
       home: Builder(
@@ -114,9 +108,7 @@ void main() {
     EdgeInsets? _g;
     EdgeInsets? _g2;
 
-    tester.binding.window.physicalSizeTestValue =
-        Size(wideScreenBreakPointStart, 200);
-    tester.binding.window.devicePixelRatioTestValue = 1.0;
+    setScreenSize(tester, wideScreenBreakPointStart);
     // resets the screen to its orinal size after the test end
     await tester.pumpWidget(MaterialApp(
       home: Builder(
@@ -132,18 +124,16 @@ void main() {
     addTearDown(tester.binding.window.clearPhysicalSizeTestValue);
   });
 
-  testWidgets('xl', (WidgetTester tester) async {
+  testWidgets('xxl', (WidgetTester tester) async {
     String? test;
 
-    tester.binding.window.physicalSizeTestValue =
-        Size(wideScreenBreakPointStart, 200);
-    tester.binding.window.devicePixelRatioTestValue = 1.0;
+    setScreenSize(tester, extraWideScreenBreakPointStart);
     // resets the screen to its orinal size after the test end
     await tester.pumpWidget(MaterialApp(
       home: Builder(
         builder: (BuildContext context) {
-          String testValue = "value for extra large";
-          test = valueFor<String>(context, xl: testValue);
+          String testValue = "value for xxl large";
+          test = valueFor<String>(context, xxl: testValue);
           expect(testValue, test);
           return Placeholder();
         },
@@ -154,10 +144,7 @@ void main() {
 
   testWidgets('default value test', (WidgetTester tester) async {
     String? test;
-
-    tester.binding.window.physicalSizeTestValue =
-        Size(wideScreenBreakPointStart, 200);
-    tester.binding.window.devicePixelRatioTestValue = 1.0;
+    setScreenSize(tester, wideScreenBreakPointStart);
     // resets the screen to its orinal size after the test end
     await tester.pumpWidget(MaterialApp(
       home: Builder(
