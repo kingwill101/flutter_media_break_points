@@ -73,7 +73,11 @@ class _AdaptiveContainerState extends State<AdaptiveContainer> {
         // Use AnimatedSwitcher to animate the transition between widgets
         return AnimatedSwitcher(
           duration: const Duration(milliseconds: 300),
-          child: hasConfig(bp) ? config(bp) : SizedBox.shrink(),
+          child: hasConfig(bp)
+              ? config(bp)
+              : widget.configs.containsKey(BreakPoint.deafult)
+                  ? config(BreakPoint.deafult)
+                  : SizedBox.shrink(),
           transitionBuilder: (Widget child, Animation<double> animation) {
             return FadeTransition(child: child, opacity: animation);
           },

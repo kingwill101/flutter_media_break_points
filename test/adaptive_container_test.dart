@@ -5,10 +5,8 @@ import 'package:media_break_points/media_break_points.dart';
 import 'shared.dart';
 
 void main() {
-
   testWidgets('AdaptiveContainer changes widget based on screen size',
       (WidgetTester tester) async {
-
     await tester.pumpWidget(MaterialApp(
       home: AdaptiveContainer(
         configs: {
@@ -21,11 +19,11 @@ void main() {
         },
       ),
     ));
-    
+
     setScreenSize(tester, extraSmallStart);
     await tester.pumpAndSettle();
-    expect(find.text('XS'), findsOneWidget);  
-    
+    expect(find.text('XS'), findsOneWidget);
+
     setScreenSize(tester, mobileBreakPointStart);
     await tester.pumpAndSettle();
     expect(find.text('SM'), findsOneWidget);
@@ -46,6 +44,15 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('XXL'), findsOneWidget);
 
-
+    await tester.pumpWidget(MaterialApp(
+      home: AdaptiveContainer(
+        configs: {
+          BreakPoint.deafult:
+              AdaptiveSlot(builder: (context) => Text('Default')),
+        },
+      ),
+    ));
+    await tester.pumpAndSettle();
+    expect(find.text('Default'), findsOneWidget);
   });
 }
