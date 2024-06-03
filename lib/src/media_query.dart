@@ -1,86 +1,100 @@
 import 'package:flutter/material.dart';
+import 'package:media_break_points/media_break_points.dart';
+import 'package:media_break_points/src/adaptive.dart';
 
-///screen size xs
-const double extraSmallStart = 0;
-const double extraSmallEnd = 575;
+Map<BreakPoint, (double, double)> screenSize = {
+  BreakPoint.xs: (0, 575),
+  BreakPoint.sm: (576, 767),
+  BreakPoint.md: (768, 991),
+  BreakPoint.lg: (992, 1199),
+  BreakPoint.xl: (1200, 1400),
+  BreakPoint.xxl: (1401, 0),
+};
 
-///screen size sm
-const double mobileBreakPointStart = 576;
-const double mobileBreakPointEnd = 767;
+extension BreakPointExtension on BreakPoint {
+  double get start => screenSize[this]!.$1;
+  double get end => screenSize[this]!.$2;
+  bool operator <(BreakPoint breakpoint) => this.index < breakpoint.index;
+  bool operator >(BreakPoint breakpoint) => this.index > breakpoint.index;
+  bool operator <=(BreakPoint breakpoint) => this.index <= breakpoint.index;
+  bool operator >=(BreakPoint breakpoint) => this.index >= breakpoint.index;
 
-///screen size md
-const double tabletBreakPointStart = 768;
-const double tabletBreakPointEnd = 991;
+  String get label {
+    return switch (this) {
+      BreakPoint.xs => "xs($start, $end)",
+      BreakPoint.sm => "sm($start, $end)",
+      BreakPoint.md => "md($start, $end)",
+      BreakPoint.lg => "lg($start, $end)",
+      BreakPoint.xl => "xl($start, $end)",
+      BreakPoint.xxl => "xxl($start, $end)",
+    };
+  }
+}
 
-///screen size lg
-const double desktopBreakPointStart = 992;
-const double desktopBreakPointEnd = 1199;
+BreakPoint breakpoint(BuildContext c) {
+  final width = MediaQuery.of(c).size.width;
+  for (var val in screenSize.keys) {
+    if (valBetween(width, val.start, val.end)) {
+      return val;
+    }
+  }
+  return BreakPoint.xxl;
+}
 
-///screen size xl
-const double wideScreenBreakPointStart = 1200;
-
-///screen size xxl
-const double extraWideScreenBreakPointStart = 1400;
-
-///check if values are between [start] and [end]
 bool valBetween(double val, double start, double end) {
   return (val >= start) && (val <= end);
 }
 
 ///if screen is xs
 bool isXs(BuildContext context) {
-  return valBetween(
-      MediaQuery.of(context).size.width, extraSmallStart, extraSmallEnd);
+  return breakpoint(context) == BreakPoint.xs;
 }
 
 ///if screen is sm
 bool isSm(BuildContext context) {
-  return valBetween(MediaQuery.of(context).size.width, mobileBreakPointStart,
-      mobileBreakPointEnd);
+  return breakpoint(context) == BreakPoint.sm;
 }
 
 ///if screen is md
 bool isMd(BuildContext context) {
-  return valBetween(MediaQuery.of(context).size.width, tabletBreakPointStart,
-      tabletBreakPointEnd);
+  return breakpoint(context) == BreakPoint.md;
 }
 
 ///if screen is lg
 bool isLg(BuildContext context) {
-  return valBetween(MediaQuery.of(context).size.width, desktopBreakPointStart,
-      desktopBreakPointEnd);
+  return breakpoint(context) == BreakPoint.lg;
 }
 
 ///if screen is xl
 bool isXl(BuildContext context) {
-  final width = MediaQuery.of(context).size.width;
-  return width >= wideScreenBreakPointStart &&
-      width < extraWideScreenBreakPointStart;
+  return breakpoint(context) == BreakPoint.xl;
 }
 
 ///if screen is xxl
 bool isXXl(BuildContext context) {
-  return MediaQuery.of(context).size.width >= extraWideScreenBreakPointStart;
+  return breakpoint(context) == BreakPoint.xxl;
 }
 
-extension BreakPointExtension on BuildContext {
+extension BuildContextExtension on BuildContext {
   bool get isExtraSmall => isXs(this);
   bool get isSmall => isSm(this);
   bool get isMedium => isMd(this);
   bool get isLarge => isLg(this);
   bool get isExtraLarge => isXl(this);
   bool get isExtraExtraLarge => isXXl(this);
+  BreakPoint get breakPoint => breakpoint(this);
 }
 
 /// Returns value corresponding to current breakpoint
 /// if corresponding breakpoint is not provided or [defaultValue] if  a
 ///  default value is provided provided
 /// optional breakpoints include
-/// [xs] - between [extraSmallStart] and [extraSmallEnd
-/// [sm] - between [mobileBreakPointStart] and [mobileBreakPointEnd]
-/// [md] - between [tabletBreakPointStart] and [tabletBreakPointEnd]
-/// [lg] - between [desktopBreakPointStart] and [desktopBreakPointEnd]
-/// [xl] - viewports above [wideScreenBreakPointStart]
+/// [xs]
+/// [sm]
+/// [md]
+/// [lg]
+/// [lg]
+/// [xxl]
 /// [defaultValue] the default value to return if a breakpoint value isn't set
 /// ```dart
 /// Container c = Container(
@@ -94,48 +108,17 @@ extension BreakPointExtension on BuildContext {
 ///
 T? valueFor<T>(BuildContext context,
     {T? xs, T? sm, T? md, T? lg, T? xl, T? xxl, T? defaultValue}) {
-  if (xs != null && context.isExtraSmall) {
-    return xs;
-  }
-  if (sm != null && context.isSmall) {
-    return sm;
-  }
-  if (md != null && context.isMedium) {
-    return md;
-  }
-  if (lg != null && context.isLarge) {
-    return lg;
-  }
-  if (xl != null && context.isExtraLarge) {
-    return xl;
-  }
-  if (xxl != null && context.isExtraExtraLarge) {
-    return xxl;
-  }
-
-  if (defaultValue != null) {
-    return defaultValue;
-  }
-  return null;
+  if (context.isExtraSmall && xs != null) return xs;
+  if (context.isSmall && sm != null) return sm;
+  if (context.isMedium && md != null) return md;
+  if (context.isLarge && lg != null) return lg;
+  if (context.isExtraLarge && xl != null) return xl;
+  if (context.isExtraExtraLarge && xxl != null) return xxl;
+  return defaultValue;
 }
 
 ///return string representation of screen size
 String strRep<T>(BuildContext context) {
   String _size = MediaQuery.of(context).size.toString();
-  if (isXs(context)) {
-    return "xs: $_size";
-  }
-  if (isSm(context)) {
-    return "sm: $_size";
-  }
-  if (isMd(context)) {
-    return "md: $_size";
-  }
-  if (isLg(context)) {
-    return "lg: $_size";
-  }
-  if (isXl(context)) {
-    return "xl: $_size";
-  }
-  return "unknown: $_size";
+  return "${context.breakPoint.label} - $_size";
 }
