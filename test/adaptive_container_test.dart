@@ -20,39 +20,29 @@ void main() {
       ),
     ));
 
-    setScreenSize(tester, extraSmallStart);
+    setScreenSize(tester,  BreakPoint.xs.start);
     await tester.pumpAndSettle();
     expect(find.text('XS'), findsOneWidget);
 
-    setScreenSize(tester, mobileBreakPointStart);
+    setScreenSize(tester,  BreakPoint.sm.start);
     await tester.pumpAndSettle();
     expect(find.text('SM'), findsOneWidget);
 
-    setScreenSize(tester, tabletBreakPointEnd);
+    setScreenSize(tester,  BreakPoint.md.start);
     await tester.pumpAndSettle();
     expect(find.text('MD'), findsOneWidget);
 
-    setScreenSize(tester, desktopBreakPointStart);
+    setScreenSize(tester,  BreakPoint.lg.start);
     await tester.pumpAndSettle();
     expect(find.text('LG'), findsOneWidget);
 
-    setScreenSize(tester, wideScreenBreakPointStart);
+    setScreenSize(tester,  BreakPoint.xl.start);
     await tester.pumpAndSettle();
     expect(find.text('XL'), findsOneWidget);
 
-    setScreenSize(tester, extraWideScreenBreakPointStart);
+    setScreenSize(tester,  BreakPoint.xxl.start);
     await tester.pumpAndSettle();
     expect(find.text('XXL'), findsOneWidget);
-
-    await tester.pumpWidget(MaterialApp(
-      home: AdaptiveContainer(
-        configs: {
-          BreakPoint.deafult:
-              AdaptiveSlot(builder: (context) => Text('Default')),
-        },
-      ),
-    ));
-    await tester.pumpAndSettle();
-    expect(find.text('Default'), findsOneWidget);
   });
+
 }

@@ -28,7 +28,7 @@ void main() {
     EdgeInsets? _g;
     EdgeInsets? _g2;
 
-    setScreenSize(tester, extraSmallEnd);
+    setScreenSize(tester, BreakPoint.xs.start);
 
     // resets the screen to its orinal size after the test end
     await tester.pumpWidget(MaterialApp(
@@ -49,7 +49,7 @@ void main() {
     EdgeInsets? _g;
     EdgeInsets? _g2;
 
-    setScreenSize(tester, mobileBreakPointStart);
+    setScreenSize(tester,  BreakPoint.sm.start);
     // resets the screen to its orinal size after the test end
     await tester.pumpWidget(MaterialApp(
       home: Builder(
@@ -69,7 +69,7 @@ void main() {
     EdgeInsets? _g;
     EdgeInsets? _g2;
 
-    setScreenSize(tester, tabletBreakPointEnd);
+    setScreenSize(tester,  BreakPoint.md.end);
     // resets the screen to its orinal size after the test end
     await tester.pumpWidget(MaterialApp(
       home: Builder(
@@ -89,7 +89,7 @@ void main() {
     EdgeInsets? _g;
     EdgeInsets? _g2;
 
-    setScreenSize(tester, desktopBreakPointStart);
+    setScreenSize(tester,  BreakPoint.lg.start);
     // resets the screen to its orinal size after the test end
     await tester.pumpWidget(MaterialApp(
       home: Builder(
@@ -108,7 +108,7 @@ void main() {
     EdgeInsets? _g;
     EdgeInsets? _g2;
 
-    setScreenSize(tester, wideScreenBreakPointStart);
+    setScreenSize(tester,  BreakPoint.xl.start);
     // resets the screen to its orinal size after the test end
     await tester.pumpWidget(MaterialApp(
       home: Builder(
@@ -127,7 +127,7 @@ void main() {
   testWidgets('xxl', (WidgetTester tester) async {
     String? test;
 
-    setScreenSize(tester, extraWideScreenBreakPointStart);
+    setScreenSize(tester,  BreakPoint.xxl.start);
     // resets the screen to its orinal size after the test end
     await tester.pumpWidget(MaterialApp(
       home: Builder(
@@ -144,7 +144,7 @@ void main() {
 
   testWidgets('default value test', (WidgetTester tester) async {
     String? test;
-    setScreenSize(tester, wideScreenBreakPointStart);
+    setScreenSize(tester,  BreakPoint.xl.start);
     // resets the screen to its orinal size after the test end
     await tester.pumpWidget(MaterialApp(
       home: Builder(
