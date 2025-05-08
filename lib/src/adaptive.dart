@@ -10,6 +10,18 @@ enum BreakPoint {
   xxl,
 }
 
+typedef ValueBuilderFunc<T> = T Function();
+
+T ValueBuilder<T>(BuildContext context, ValueBuilderFunc<T> f) {
+  return f();
+}
+
+extension BuildValueExtension on BuildContext {
+  value<T>(ValueBuilderFunc<T> f) {
+    return ValueBuilder<T>(this, f);
+  }
+}
+
 
 typedef AdaptiveTransition = Widget Function(Widget, Animation<double>);
 
@@ -50,8 +62,7 @@ class _AdaptiveContainerState extends State<AdaptiveContainer> {
   AdaptiveSlot config(BreakPoint breakPoint) =>
       widget.configs[breakPoint] != null
           ? widget.configs[breakPoint]!
-          : AdaptiveSlot(
-              builder: (_) =>  SizedBox.shrink());
+          : AdaptiveSlot(builder: (_) => SizedBox.shrink());
 
   @override
   Widget build(BuildContext context) {

@@ -26,3 +26,9 @@ add BreakPoint extensions
 - `breakPoint.label`
 - `breakPoint.start` and `breakPoint.start` 
 - overload breakpoint comparison operators 
+
+## [1.6.1]
+
+add BuildContext extension:
+- `context.value<T>()`
+- add `ValueBuilder` helper
