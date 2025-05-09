@@ -19,19 +19,19 @@ Map<BreakPoint, (double, double)> screenSize = {
 extension BreakPointExtension on BreakPoint {
   /// The starting width of this breakpoint in logical pixels.
   double get start => screenSize[this]!.$1;
-  
+
   /// The ending width of this breakpoint in logical pixels.
   double get end => screenSize[this]!.$2;
-  
+
   /// Whether this breakpoint is smaller than [breakpoint].
   bool operator <(BreakPoint breakpoint) => this.index < breakpoint.index;
-  
+
   /// Whether this breakpoint is larger than [breakpoint].
   bool operator >(BreakPoint breakpoint) => this.index > breakpoint.index;
-  
+
   /// Whether this breakpoint is smaller than or equal to [breakpoint].
   bool operator <=(BreakPoint breakpoint) => this.index <= breakpoint.index;
-  
+
   /// Whether this breakpoint is larger than or equal to [breakpoint].
   bool operator >=(BreakPoint breakpoint) => this.index >= breakpoint.index;
 
@@ -61,7 +61,6 @@ bool getConsiderOrientation() {
   return _considerOrientation;
 }
 
-
 /// Determines the current breakpoint based on screen width and orientation.
 ///
 /// Uses [MediaQuery] to get the current screen width and orientation,
@@ -73,8 +72,7 @@ BreakPoint breakpoint(BuildContext c) {
 
   // If orientation consideration is enabled and device is in landscape,
   // we might want to bump up the breakpoint
-  if (getConsiderOrientation() && 
-      orientation == Orientation.landscape) {
+  if (getConsiderOrientation() && orientation == Orientation.landscape) {
     // Find the current breakpoint based on width
     BreakPoint current = _breakpointForWidth(width);
     // In landscape, we might want to use a larger breakpoint
@@ -144,22 +142,22 @@ bool isXXl(BuildContext context) {
 extension BuildContextExtension on BuildContext {
   /// Whether the screen is extra small (xs).
   bool get isExtraSmall => isXs(this);
-  
+
   /// Whether the screen is small (sm).
   bool get isSmall => isSm(this);
-  
+
   /// Whether the screen is medium (md).
   bool get isMedium => isMd(this);
-  
+
   /// Whether the screen is large (lg).
   bool get isLarge => isLg(this);
-  
+
   /// Whether the screen is extra large (xl).
   bool get isExtraLarge => isXl(this);
-  
+
   /// Whether the screen is extra extra large (xxl).
   bool get isExtraExtraLarge => isXXl(this);
-  
+
   /// The current breakpoint based on screen width.
   BreakPoint get breakPoint => breakpoint(this);
 }
@@ -180,7 +178,7 @@ extension BuildContextExtension on BuildContext {
 /// - [defaultValue]: Default value to return if no breakpoint value is provided
 ///
 /// Example:
-/// 
+///
 /// Container(
 ///   padding: valueFor<EdgeInsets>(
 ///     context,
@@ -191,7 +189,7 @@ extension BuildContextExtension on BuildContext {
 ///   ),
 ///   child: Text('Responsive padding'),
 /// )
-/// 
+///
 T? valueFor<T>(BuildContext context,
     {T? xs, T? sm, T? md, T? lg, T? xl, T? xxl, T? defaultValue}) {
   if (context.isExtraSmall && xs != null) return xs;

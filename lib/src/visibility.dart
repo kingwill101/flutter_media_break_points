@@ -8,7 +8,7 @@ import 'media_query.dart';
 /// screen sizes without having to write conditional logic in your build method.
 ///
 /// Example:
-/// 
+///
 /// ResponsiveVisibility(
 ///   visibleWhen: {
 ///     Condition.largerThan(name: BreakPoint.sm): true,
@@ -16,58 +16,58 @@ import 'media_query.dart';
 ///   replacement: MobileMenu(),
 ///   child: DesktopMenu(),
 /// )
-/// 
+///
 class ResponsiveVisibility extends StatelessWidget {
   /// The child widget to show or hide.
   final Widget child;
-  
+
   /// The widget to show when the child is hidden.
   ///
   /// If null, an empty [SizedBox] will be used.
   final Widget? replacement;
-  
+
   /// Whether the child is visible on extra small screens.
   final bool? visibleXs;
-  
+
   /// Whether the child is visible on small screens.
   final bool? visibleSm;
-  
+
   /// Whether the child is visible on medium screens.
   final bool? visibleMd;
-  
+
   /// Whether the child is visible on large screens.
   final bool? visibleLg;
-  
+
   /// Whether the child is visible on extra large screens.
   final bool? visibleXl;
-  
+
   /// Whether the child is visible on extra extra large screens.
   final bool? visibleXxl;
-  
+
   /// A map of conditions to visibility values.
   ///
   /// This allows for more complex visibility rules than the simple
   /// breakpoint-based properties.
   final Map<Condition, bool>? visibleWhen;
-  
+
   /// Whether to maintain the child's state when it's not visible.
   ///
   /// If true, the child will be built but not shown when it's not visible.
   /// If false, the child will not be built when it's not visible.
   final bool maintainState;
-  
+
   /// Whether to maintain the child's size when it's not visible.
   ///
   /// If true, the child's size will be preserved when it's not visible.
   /// If false, the child will take up no space when it's not visible.
   final bool maintainSize;
-  
+
   /// Whether to maintain the child's animation when it's not visible.
   ///
   /// If true, the child's animation will continue when it's not visible.
   /// If false, the child's animation will be paused when it's not visible.
   final bool maintainAnimation;
-  
+
   /// Whether to maintain the child's interactivity when it's not visible.
   ///
   /// If true, the child will still be interactive when it's not visible.
@@ -113,10 +113,9 @@ class ResponsiveVisibility extends StatelessWidget {
     // If not maintaining state and a replacement is provided, use replacement when not visible
     return isVisible ? child : replacement!;
   }
-  
+
   /// Determines whether the child should be visible based on the current breakpoint.
   bool _isVisible(BuildContext context) {
-    final currentBreakpoint = context.breakPoint;
     // Check simple breakpoint visibility properties
     final breakpointVisible = valueFor<bool>(
       context,
@@ -127,7 +126,14 @@ class ResponsiveVisibility extends StatelessWidget {
       xl: visibleXl,
       xxl: visibleXxl,
     );
-    final anyFlagSet = [visibleXs, visibleSm, visibleMd, visibleLg, visibleXl, visibleXxl].any((v) => v != null);
+    final anyFlagSet = [
+      visibleXs,
+      visibleSm,
+      visibleMd,
+      visibleLg,
+      visibleXl,
+      visibleXxl
+    ].any((v) => v != null);
     if (breakpointVisible != null) {
       return breakpointVisible;
     }

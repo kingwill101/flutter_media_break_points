@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'shared.dart';
 import 'package:media_break_points/media_break_points.dart';
@@ -42,14 +41,14 @@ void main() {
         },
       ),
     ));
-    addTearDown(tester.binding.window.clearPhysicalSizeTestValue);
+    addTearDown(tester.view.clearPhysicalSizeTestValue);
   });
 
   testWidgets('sm', (WidgetTester tester) async {
     EdgeInsets? _g;
     EdgeInsets? _g2;
 
-    setScreenSize(tester,  BreakPoint.sm.start);
+    setScreenSize(tester, BreakPoint.sm.start);
     // resets the screen to its orinal size after the test end
     await tester.pumpWidget(MaterialApp(
       home: Builder(
@@ -62,14 +61,14 @@ void main() {
         },
       ),
     ));
-    addTearDown(tester.binding.window.clearPhysicalSizeTestValue);
+    addTearDown(tester.view.clearPhysicalSizeTestValue);
   });
 
   testWidgets('md', (WidgetTester tester) async {
     EdgeInsets? _g;
     EdgeInsets? _g2;
 
-    setScreenSize(tester,  BreakPoint.md.end);
+    setScreenSize(tester, BreakPoint.md.end);
     // resets the screen to its orinal size after the test end
     await tester.pumpWidget(MaterialApp(
       home: Builder(
@@ -82,14 +81,14 @@ void main() {
         },
       ),
     ));
-    addTearDown(tester.binding.window.clearPhysicalSizeTestValue);
+    addTearDown(tester.view.clearPhysicalSizeTestValue);
   });
 
   testWidgets('lg', (WidgetTester tester) async {
     EdgeInsets? _g;
     EdgeInsets? _g2;
 
-    setScreenSize(tester,  BreakPoint.lg.start);
+    setScreenSize(tester, BreakPoint.lg.start);
     // resets the screen to its orinal size after the test end
     await tester.pumpWidget(MaterialApp(
       home: Builder(
@@ -102,13 +101,13 @@ void main() {
         },
       ),
     ));
-    addTearDown(tester.binding.window.clearPhysicalSizeTestValue);
+    addTearDown(tester.view.clearPhysicalSizeTestValue);
   });
   testWidgets('xl', (WidgetTester tester) async {
     EdgeInsets? _g;
     EdgeInsets? _g2;
 
-    setScreenSize(tester,  BreakPoint.xl.start);
+    setScreenSize(tester, BreakPoint.xl.start);
     // resets the screen to its orinal size after the test end
     await tester.pumpWidget(MaterialApp(
       home: Builder(
@@ -121,13 +120,13 @@ void main() {
         },
       ),
     ));
-    addTearDown(tester.binding.window.clearPhysicalSizeTestValue);
+    addTearDown(tester.view.clearPhysicalSizeTestValue);
   });
 
   testWidgets('xxl', (WidgetTester tester) async {
     String? test;
 
-    setScreenSize(tester,  BreakPoint.xxl.start);
+    setScreenSize(tester, BreakPoint.xxl.start);
     // resets the screen to its orinal size after the test end
     await tester.pumpWidget(MaterialApp(
       home: Builder(
@@ -139,12 +138,12 @@ void main() {
         },
       ),
     ));
-    addTearDown(tester.binding.window.clearPhysicalSizeTestValue);
+    addTearDown(tester.view.clearPhysicalSizeTestValue);
   });
 
   testWidgets('default value test', (WidgetTester tester) async {
     String? test;
-    setScreenSize(tester,  BreakPoint.xl.start);
+    setScreenSize(tester, BreakPoint.xl.start);
     // resets the screen to its orinal size after the test end
     await tester.pumpWidget(MaterialApp(
       home: Builder(
@@ -156,6 +155,6 @@ void main() {
         },
       ),
     ));
-    addTearDown(tester.binding.window.clearPhysicalSizeTestValue);
+    addTearDown(tester.view.clearPhysicalSizeTestValue);
   });
 }

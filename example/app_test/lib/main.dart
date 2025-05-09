@@ -4,16 +4,16 @@ import 'package:media_break_points/media_break_points.dart';
 void main() {
   // Initialize with custom configuration if needed
   initMediaBreakPoints(
-    MediaBreakPointsConfig(
+    const MediaBreakPointsConfig(
       considerOrientation: true,
     ),
   );
-  
+
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
 }
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -39,9 +39,9 @@ class HomePage extends StatelessWidget {
           'Media Break Points Demo',
           style: ResponsiveTextStyle.of(
             context,
-            xs: TextStyle(fontSize: 18),
-            md: TextStyle(fontSize: 20),
-            lg: TextStyle(fontSize: 22),
+            xs: const TextStyle(fontSize: 18),
+            md: const TextStyle(fontSize: 20),
+            lg: const TextStyle(fontSize: 22),
           ),
         ),
       ),
@@ -80,7 +80,7 @@ class HomePage extends StatelessWidget {
 }
 
 class AppDrawer extends StatelessWidget {
-  const AppDrawer({Key? key}) : super(key: key);
+  const AppDrawer({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +89,7 @@ class AppDrawer extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: [
           DrawerHeader(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: Colors.blue,
             ),
             child: Text(
@@ -132,7 +132,7 @@ class AppDrawer extends StatelessWidget {
 }
 
 class MobileLayout extends StatelessWidget {
-  const MobileLayout({Key? key}) : super(key: key);
+  const MobileLayout({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -140,8 +140,8 @@ class MobileLayout extends StatelessWidget {
       child: Padding(
         padding: ResponsiveSpacing.padding(
           context,
-          xs: EdgeInsets.all(16),
-          md: EdgeInsets.all(24),
+          xs: const EdgeInsets.all(16),
+          md: const EdgeInsets.all(24),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -150,19 +150,19 @@ class MobileLayout extends StatelessWidget {
               'Mobile Layout',
               style: ResponsiveTextStyle.of(
                 context,
-                xs: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                md: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+                xs: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                md: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
               ),
             ),
             ResponsiveSpacing.gap(context, xs: 16, md: 24),
             Text(
               'Current breakpoint: ${context.breakPoint.label}',
-              style: TextStyle(fontSize: 16),
+              style: const TextStyle(fontSize: 16),
             ),
             ResponsiveSpacing.gap(context, xs: 16, md: 24),
             Text(
               'Device type: ${context.deviceType.toString().split('.').last}',
-              style: TextStyle(fontSize: 16),
+              style: const TextStyle(fontSize: 16),
             ),
             ResponsiveSpacing.gap(context, xs: 24, md: 32),
             const CardGrid(columns: 1),
@@ -174,7 +174,7 @@ class MobileLayout extends StatelessWidget {
 }
 
 class TabletLayout extends StatelessWidget {
-  const TabletLayout({Key? key}) : super(key: key);
+  const TabletLayout({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -182,8 +182,8 @@ class TabletLayout extends StatelessWidget {
       child: Padding(
         padding: ResponsiveSpacing.padding(
           context,
-          md: EdgeInsets.all(24),
-          lg: EdgeInsets.all(32),
+          md: const EdgeInsets.all(24),
+          lg: const EdgeInsets.all(32),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -192,19 +192,19 @@ class TabletLayout extends StatelessWidget {
               'Tablet Layout',
               style: ResponsiveTextStyle.of(
                 context,
-                md: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-                lg: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+                md: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+                lg: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
               ),
             ),
             ResponsiveSpacing.gap(context, md: 24, lg: 32),
             Text(
               'Current breakpoint: ${context.breakPoint.label}',
-              style: TextStyle(fontSize: 18),
+              style: const TextStyle(fontSize: 18),
             ),
             ResponsiveSpacing.gap(context, md: 24, lg: 32),
             Text(
               'Device type: ${context.deviceType.toString().split('.').last}',
-              style: TextStyle(fontSize: 18),
+              style: const TextStyle(fontSize: 18),
             ),
             ResponsiveSpacing.gap(context, md: 32, lg: 40),
             const CardGrid(columns: 2),
@@ -216,7 +216,7 @@ class TabletLayout extends StatelessWidget {
 }
 
 class DesktopLayout extends StatelessWidget {
-  const DesktopLayout({Key? key}) : super(key: key);
+  const DesktopLayout({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -230,7 +230,7 @@ class DesktopLayout extends StatelessWidget {
               padding: EdgeInsets.zero,
               children: [
                 DrawerHeader(
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Colors.blue,
                   ),
                   child: Text(
@@ -270,8 +270,8 @@ class DesktopLayout extends StatelessWidget {
             child: Padding(
               padding: ResponsiveSpacing.padding(
                 context,
-                lg: EdgeInsets.all(32),
-                xl: EdgeInsets.all(40),
+                lg: const EdgeInsets.all(32),
+                xl: const EdgeInsets.all(40),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -280,19 +280,21 @@ class DesktopLayout extends StatelessWidget {
                     'Desktop Layout',
                     style: ResponsiveTextStyle.of(
                       context,
-                      lg: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
-                      xl: TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
+                      lg: const TextStyle(
+                          fontSize: 32, fontWeight: FontWeight.bold),
+                      xl: const TextStyle(
+                          fontSize: 36, fontWeight: FontWeight.bold),
                     ),
                   ),
                   ResponsiveSpacing.gap(context, lg: 32, xl: 40),
                   Text(
                     'Current breakpoint: ${context.breakPoint.label}',
-                    style: TextStyle(fontSize: 20),
+                    style: const TextStyle(fontSize: 20),
                   ),
                   ResponsiveSpacing.gap(context, lg: 32, xl: 40),
                   Text(
                     'Device type: ${context.deviceType.toString().split('.').last}',
-                    style: TextStyle(fontSize: 20),
+                    style: const TextStyle(fontSize: 20),
                   ),
                   ResponsiveSpacing.gap(context, lg: 40, xl: 48),
                   const CardGrid(columns: 3),
@@ -309,7 +311,7 @@ class DesktopLayout extends StatelessWidget {
 class CardGrid extends StatelessWidget {
   final int columns;
 
-  const CardGrid({Key? key, required this.columns}) : super(key: key);
+  const CardGrid({super.key, required this.columns});
 
   @override
   Widget build(BuildContext context) {
@@ -321,8 +323,16 @@ class CardGrid extends StatelessWidget {
         (index) => ResponsiveGridItem(
           xs: 12,
           sm: columns == 1 ? 12 : 6,
-          md: columns == 1 ? 12 : columns == 2 ? 6 : 4,
-          lg: columns == 1 ? 12 : columns == 2 ? 6 : 4,
+          md: columns == 1
+              ? 12
+              : columns == 2
+                  ? 6
+                  : 4,
+          lg: columns == 1
+              ? 12
+              : columns == 2
+                  ? 6
+                  : 4,
           child: Card(
             elevation: 4,
             child: Padding(

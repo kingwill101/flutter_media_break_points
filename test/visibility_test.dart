@@ -4,7 +4,8 @@ import 'package:media_break_points/media_break_points.dart';
 import 'shared.dart';
 
 void main() {
-  testWidgets('ResponsiveVisibility shows/hides content based on breakpoint', (WidgetTester tester) async {
+  testWidgets('ResponsiveVisibility shows/hides content based on breakpoint',
+      (WidgetTester tester) async {
     await tester.pumpWidget(MaterialApp(
       home: Scaffold(
         body: Column(
@@ -64,11 +65,11 @@ void main() {
     expect(find.byKey(Key('mobile')), findsOneWidget);
     expect(find.byKey(Key('tablet')), findsNothing);
     expect(find.byKey(Key('desktop')), findsNothing);
-    
+
     // The 'large' widget uses Condition.largerThan(BreakPoint.md)
     // So it should not be visible on xs screens
     expect(find.byKey(Key('large')), findsNothing);
-    
+
     expect(find.byKey(Key('replacement')), findsOneWidget);
     expect(find.byKey(Key('original')), findsNothing);
 
@@ -78,11 +79,11 @@ void main() {
     expect(find.byKey(Key('mobile')), findsNothing);
     expect(find.byKey(Key('tablet')), findsOneWidget);
     expect(find.byKey(Key('desktop')), findsNothing);
-    
+
     // The 'large' widget uses Condition.largerThan(BreakPoint.md)
     // So it should not be visible on md screens (it needs to be larger than md)
     expect(find.byKey(Key('large')), findsNothing);
-    
+
     expect(find.byKey(Key('replacement')), findsOneWidget);
     expect(find.byKey(Key('original')), findsNothing);
 
@@ -92,11 +93,11 @@ void main() {
     expect(find.byKey(Key('mobile')), findsNothing);
     expect(find.byKey(Key('tablet')), findsOneWidget);
     expect(find.byKey(Key('desktop')), findsNothing);
-    
+
     // The 'large' widget uses Condition.largerThan(BreakPoint.md)
     // So it should be visible on lg screens
     expect(find.byKey(Key('large')), findsOneWidget);
-    
+
     expect(find.byKey(Key('replacement')), findsOneWidget);
     expect(find.byKey(Key('original')), findsNothing);
 
@@ -113,7 +114,8 @@ void main() {
     resetScreenSize(tester);
   });
 
-  testWidgets('ResponsiveVisibility maintains state when configured', (WidgetTester tester) async {
+  testWidgets('ResponsiveVisibility maintains state when configured',
+      (WidgetTester tester) async {
     await tester.pumpWidget(MaterialApp(
       home: Scaffold(
         body: Center(
@@ -130,10 +132,10 @@ void main() {
     // Test small screen (widget should be visible)
     setScreenSize(tester, BreakPoint.sm.start);
     await tester.pumpAndSettle();
-    
+
     // Verify the widget is visible
     expect(find.byKey(Key('stateful')), findsOneWidget);
-    
+
     // Increment counter
     await tester.tap(find.byKey(Key('increment')));
     await tester.pumpAndSettle();
@@ -142,7 +144,7 @@ void main() {
     // Test extra small screen (widget should be hidden but state maintained)
     setScreenSize(tester, BreakPoint.xs.start);
     await tester.pumpAndSettle();
-    
+
     // Widget should be hidden
     expect(find.byKey(Key('stateful')), findsNothing);
     expect(find.text('Count: 1'), findsNothing); // Text is not visible
@@ -150,7 +152,7 @@ void main() {
     // Back to small screen (widget should be visible with state maintained)
     setScreenSize(tester, BreakPoint.sm.start);
     await tester.pumpAndSettle();
-    
+
     // Widget should be visible again with state maintained
     expect(find.byKey(Key('stateful')), findsOneWidget);
     expect(find.text('Count: 1'), findsOneWidget);

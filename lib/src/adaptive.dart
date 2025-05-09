@@ -117,17 +117,17 @@ class AdaptiveContainer extends StatefulWidget {
   ///
   /// Each entry in this map defines a layout for a specific breakpoint.
   final Map<BreakPoint, AdaptiveSlot> configs;
-  
+
   /// The duration of the transition animation in milliseconds.
   ///
   /// This is only used if [enableAnimation] is true.
   final int animationDuration;
-  
+
   /// A function that defines how to transition between layouts.
   ///
   /// If not provided, a fade transition is used by default.
   final AdaptiveTransition? transitionBuilder;
-  
+
   /// Whether to animate transitions between layouts.
   ///
   /// If true, layouts will animate when switching between breakpoints.
@@ -156,7 +156,7 @@ class _AdaptiveContainerState extends State<AdaptiveContainer> {
   /// Checks if a configuration exists for the given breakpoint.
   bool hasConfig(BreakPoint breakPoint) =>
       widget.configs.containsKey(breakPoint);
-      
+
   /// Gets the configuration for the given breakpoint.
   ///
   /// If no configuration exists for the breakpoint, returns an empty slot.

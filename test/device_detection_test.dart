@@ -6,14 +6,16 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'dart:io' show Platform;
 
 void main() {
-  testWidgets('DeviceDetector correctly identifies device types based on breakpoint', (WidgetTester tester) async {
+  testWidgets(
+      'DeviceDetector correctly identifies device types based on breakpoint',
+      (WidgetTester tester) async {
     late DeviceType deviceType;
     late bool isMobile;
     late bool isTablet;
     late bool isDesktop;
     late bool supportsHover;
     late bool hasTouch;
-    
+
     await tester.pumpWidget(MaterialApp(
       home: Builder(
         builder: (context) {
@@ -23,7 +25,7 @@ void main() {
           isDesktop = context.isDesktop;
           supportsHover = context.supportsHover;
           hasTouch = context.hasTouch;
-          
+
           return Column(
             children: [
               Text('Device Type: $deviceType'),
@@ -37,11 +39,11 @@ void main() {
         },
       ),
     ));
-    
+
     // Test extra small screen (should be mobile)
     setScreenSize(tester, BreakPoint.xs.start);
     await tester.pumpAndSettle();
-    
+
     // On mobile platforms, xs should be detected as mobile
     if (kIsWeb) {
       expect(deviceType, DeviceType.web);
@@ -55,11 +57,11 @@ void main() {
       expect(isDesktop, true);
       expect(supportsHover, true);
     }
-    
+
     // Test medium screen (should be tablet on mobile platforms)
     setScreenSize(tester, BreakPoint.md.start);
     await tester.pumpAndSettle();
-    
+
     if (kIsWeb) {
       expect(deviceType, DeviceType.web);
     } else if (Platform.isAndroid || Platform.isIOS) {
@@ -72,7 +74,7 @@ void main() {
       expect(isDesktop, true);
       expect(supportsHover, true);
     }
-    
+
     resetScreenSize(tester);
   });
 }

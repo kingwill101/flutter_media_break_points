@@ -43,7 +43,7 @@ void main() {
     setScreenSize(tester, BreakPoint.xxl.start);
     await tester.pumpAndSettle();
     expect(find.text('XXL'), findsOneWidget);
-    
+
     resetScreenSize(tester);
   });
 
@@ -54,8 +54,10 @@ void main() {
         enableAnimation: true,
         animationDuration: 300,
         configs: {
-          BreakPoint.xs: AdaptiveSlot(builder: (context) => Text('XS', key: Key('xs'))),
-          BreakPoint.md: AdaptiveSlot(builder: (context) => Text('MD', key: Key('md'))),
+          BreakPoint.xs:
+              AdaptiveSlot(builder: (context) => Text('XS', key: Key('xs'))),
+          BreakPoint.md:
+              AdaptiveSlot(builder: (context) => Text('MD', key: Key('md'))),
         },
       ),
     ));
@@ -67,15 +69,15 @@ void main() {
 
     // Change to md screen size
     setScreenSize(tester, BreakPoint.md.start);
-    
+
     // Check that animation is in progress
     await tester.pump(Duration(milliseconds: 150));
-    
+
     // After animation completes, md should be visible
     await tester.pumpAndSettle();
     expect(find.byKey(Key('md')), findsOneWidget);
     expect(find.byKey(Key('xs')), findsNothing);
-    
+
     resetScreenSize(tester);
   });
 
@@ -108,7 +110,7 @@ void main() {
     setScreenSize(tester, BreakPoint.md.start);
     await tester.pumpAndSettle();
     expect(find.text('MD'), findsOneWidget);
-    
+
     resetScreenSize(tester);
   });
 }

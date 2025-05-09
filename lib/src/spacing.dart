@@ -9,7 +9,7 @@ class ResponsiveSpacing {
   /// Creates responsive padding that adapts to different screen sizes.
   ///
   /// Example:
-  /// 
+  ///
   /// Container(
   ///   padding: ResponsiveSpacing.padding(
   ///     context,
@@ -19,7 +19,7 @@ class ResponsiveSpacing {
   ///   ),
   ///   child: Text('Hello, world!'),
   /// )
-  /// 
+  ///
   static EdgeInsetsGeometry padding(
     BuildContext context, {
     EdgeInsetsGeometry? xs,
@@ -45,7 +45,7 @@ class ResponsiveSpacing {
   /// Creates a responsive gap for use in [Row], [Column], or [Flex].
   ///
   /// Example:
-  /// 
+  ///
   /// Column(
   ///   children: [
   ///     Text('First item'),
@@ -58,7 +58,7 @@ class ResponsiveSpacing {
   ///     Text('Second item'),
   ///   ],
   /// )
-  /// 
+  ///
   static SizedBox gap(
     BuildContext context, {
     double? xs,
@@ -80,7 +80,7 @@ class ResponsiveSpacing {
       xxl: xxl,
       defaultValue: defaultValue ?? 0,
     )!;
-    
+
     return direction == Axis.vertical
         ? SizedBox(height: size)
         : SizedBox(width: size);

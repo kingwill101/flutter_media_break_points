@@ -8,7 +8,7 @@ void main() {
       considerOrientation: true,
     ),
   );
-  
+
   runApp(const MyApp());
 }
 
@@ -321,8 +321,16 @@ class CardGrid extends StatelessWidget {
         (index) => ResponsiveGridItem(
           xs: 12,
           sm: columns == 1 ? 12 : 6,
-          md: columns == 1 ? 12 : columns == 2 ? 6 : 4,
-          lg: columns == 1 ? 12 : columns == 2 ? 6 : 4,
+          md: columns == 1
+              ? 12
+              : columns == 2
+                  ? 6
+                  : 4,
+          lg: columns == 1
+              ? 12
+              : columns == 2
+                  ? 6
+                  : 4,
           child: Card(
             elevation: 4,
             child: Padding(

@@ -4,7 +4,9 @@ import 'package:media_break_points/media_break_points.dart';
 import 'shared.dart';
 
 void main() {
-  testWidgets('ResponsiveLayoutBuilder shows different layouts based on breakpoint', (WidgetTester tester) async {
+  testWidgets(
+      'ResponsiveLayoutBuilder shows different layouts based on breakpoint',
+      (WidgetTester tester) async {
     await tester.pumpWidget(MaterialApp(
       home: Scaffold(
         body: ResponsiveLayoutBuilder(
@@ -81,7 +83,9 @@ void main() {
     resetScreenSize(tester);
   });
 
-  testWidgets('ResponsiveLayoutBuilder falls back to smaller breakpoints when needed', (WidgetTester tester) async {
+  testWidgets(
+      'ResponsiveLayoutBuilder falls back to smaller breakpoints when needed',
+      (WidgetTester tester) async {
     await tester.pumpWidget(MaterialApp(
       home: Scaffold(
         body: ResponsiveLayoutBuilder(
@@ -120,11 +124,14 @@ void main() {
     resetScreenSize(tester);
   });
 
-  testWidgets('ResponsiveLayoutBuilder uses defaultBuilder when no specific builder is found', (WidgetTester tester) async {
+  testWidgets(
+      'ResponsiveLayoutBuilder uses defaultBuilder when no specific builder is found',
+      (WidgetTester tester) async {
     await tester.pumpWidget(MaterialApp(
       home: Scaffold(
         body: ResponsiveLayoutBuilder(
-          defaultBuilder: (context, breakpoint) => Text('Default Layout', key: Key('default')),
+          defaultBuilder: (context, breakpoint) =>
+              Text('Default Layout', key: Key('default')),
         ),
       ),
     ));

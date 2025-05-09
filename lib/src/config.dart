@@ -1,6 +1,7 @@
 import 'package:media_break_points/media_break_points.dart' show screenSize;
 import 'package:media_break_points/src/adaptive.dart' show BreakPoint;
-import 'package:media_break_points/src/media_query.dart' show setConsiderOrientation;
+import 'package:media_break_points/src/media_query.dart'
+    show setConsiderOrientation;
 
 /// Configuration options for customizing the media breakpoints.
 class MediaBreakPointsConfig {
@@ -8,19 +9,19 @@ class MediaBreakPointsConfig {
   ///
   /// If provided, these values will replace the default breakpoint ranges.
   final Map<BreakPoint, (double, double)>? customBreakpoints;
-  
+
   /// Whether to use device orientation when determining breakpoints.
   ///
   /// When true, the library will consider both width and orientation
   /// when determining the appropriate breakpoint.
   final bool considerOrientation;
-  
+
   /// Creates a configuration for media breakpoints.
   const MediaBreakPointsConfig({
     this.customBreakpoints,
     this.considerOrientation = false,
   });
-  
+
   /// Initializes the library with this configuration.
   void apply() {
     if (customBreakpoints != null) {
@@ -36,7 +37,7 @@ class MediaBreakPointsConfig {
 /// the breakpoint behavior.
 ///
 /// Example:
-/// 
+///
 /// void main() {
 ///   initMediaBreakPoints(
 ///     MediaBreakPointsConfig(
@@ -50,7 +51,7 @@ class MediaBreakPointsConfig {
 ///   );
 ///   runApp(MyApp());
 /// }
-/// 
+///
 void initMediaBreakPoints(MediaBreakPointsConfig config) {
   config.apply();
 }

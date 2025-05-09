@@ -4,7 +4,8 @@ import 'package:media_break_points/media_break_points.dart';
 import 'shared.dart';
 
 void main() {
-  testWidgets('Integration test for all responsive components', (WidgetTester tester) async {
+  testWidgets('Integration test for all responsive components',
+      (WidgetTester tester) async {
     // Initialize with custom configuration
     initMediaBreakPoints(
       MediaBreakPointsConfig(
@@ -46,9 +47,10 @@ void main() {
                           'Current Breakpoint: ${context.breakPoint.label}',
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
-                        Text('Device Type: ${context.deviceType.toString().split('.').last}'),
+                        Text(
+                            'Device Type: ${context.deviceType.toString().split('.').last}'),
                         ResponsiveSpacing.gap(context, xs: 16, md: 24, lg: 32),
-                        
+
                         // Responsive visibility
                         ResponsiveVisibility(
                           visibleXs: true,
@@ -57,7 +59,8 @@ void main() {
                           visibleLg: false,
                           visibleXl: false,
                           visibleXxl: false,
-                          child: Text('Mobile Only Content', key: Key('mobileContent')),
+                          child: Text('Mobile Only Content',
+                              key: Key('mobileContent')),
                         ),
                         ResponsiveVisibility(
                           visibleXs: false,
@@ -66,11 +69,12 @@ void main() {
                           visibleLg: true,
                           visibleXl: true,
                           visibleXxl: true,
-                          child: Text('Tablet and Desktop Content', key: Key('tabletDesktopContent')),
+                          child: Text('Tablet and Desktop Content',
+                              key: Key('tabletDesktopContent')),
                         ),
-                        
+
                         ResponsiveSpacing.gap(context, xs: 16, md: 24, lg: 32),
-                        
+
                         // Responsive grid
                         ResponsiveGrid(
                           children: [
@@ -124,17 +128,23 @@ void main() {
                             ),
                           ],
                         ),
-                        
+
                         ResponsiveSpacing.gap(context, xs: 16, md: 24, lg: 32),
-                        
+
                         // Responsive layout builder
                         ResponsiveLayoutBuilder(
-                          xs: (context, _) => Text('XS Layout', key: Key('xsLayout')),
-                          sm: (context, _) => Text('SM Layout', key: Key('smLayout')),
-                          md: (context, _) => Text('MD Layout', key: Key('mdLayout')),
-                          lg: (context, _) => Text('LG Layout', key: Key('lgLayout')),
-                          xl: (context, _) => Text('XL Layout', key: Key('xlLayout')),
-                          xxl: (context, _) => Text('XXL Layout', key: Key('xxlLayout')),
+                          xs: (context, _) =>
+                              Text('XS Layout', key: Key('xsLayout')),
+                          sm: (context, _) =>
+                              Text('SM Layout', key: Key('smLayout')),
+                          md: (context, _) =>
+                              Text('MD Layout', key: Key('mdLayout')),
+                          lg: (context, _) =>
+                              Text('LG Layout', key: Key('lgLayout')),
+                          xl: (context, _) =>
+                              Text('XL Layout', key: Key('xlLayout')),
+                          xxl: (context, _) =>
+                              Text('XXL Layout', key: Key('xxlLayout')),
                         ),
                       ],
                     ),
@@ -150,74 +160,74 @@ void main() {
     // Test extra small screen
     setScreenSize(tester, BreakPoint.xs.start);
     await tester.pumpAndSettle();
-    
+
     // Check visibility
     expect(find.byKey(Key('mobileContent')), findsOneWidget);
     expect(find.byKey(Key('tabletDesktopContent')), findsNothing);
-    
+
     // Check layout builder
     expect(find.byKey(Key('xsLayout')), findsOneWidget);
-    
+
     // Check grid layout (should be stacked vertically)
     final item1XsRect = tester.getRect(find.byKey(Key('gridItem1')));
     final item2XsRect = tester.getRect(find.byKey(Key('gridItem2')));
     expect(item1XsRect.top < item2XsRect.top, true);
-    
+
     // Test medium screen
     setScreenSize(tester, BreakPoint.md.start);
     await tester.pumpAndSettle();
-    
+
     // Check visibility
     expect(find.byKey(Key('mobileContent')), findsNothing);
     expect(find.byKey(Key('tabletDesktopContent')), findsOneWidget);
-    
+
     // Check layout builder
     expect(find.byKey(Key('mdLayout')), findsOneWidget);
-    
+
     // Check grid layout (should have 3 items per row)
     final item1MdRect = tester.getRect(find.byKey(Key('gridItem1')));
     final item2MdRect = tester.getRect(find.byKey(Key('gridItem2')));
     final item3MdRect = tester.getRect(find.byKey(Key('gridItem3')));
     final item4MdRect = tester.getRect(find.byKey(Key('gridItem4')));
-    
+
     expect(item1MdRect.left < item2MdRect.left, true);
     expect(item2MdRect.left < item3MdRect.left, true);
     expect(item1MdRect.top == item2MdRect.top, true);
     expect(item2MdRect.top == item3MdRect.top, true);
     expect(item3MdRect.top < item4MdRect.top, true);
-    
+
     // Test large screen
     setScreenSize(tester, BreakPoint.lg.start);
     await tester.pumpAndSettle();
-    
+
     // Check visibility
     expect(find.byKey(Key('mobileContent')), findsNothing);
     expect(find.byKey(Key('tabletDesktopContent')), findsOneWidget);
-    
+
     // Check layout builder
     expect(find.byKey(Key('lgLayout')), findsOneWidget);
-    
+
     // Check grid layout (should have 4 items per row)
     final item1LgRect = tester.getRect(find.byKey(Key('gridItem1')));
     final item2LgRect = tester.getRect(find.byKey(Key('gridItem2')));
     final item3LgRect = tester.getRect(find.byKey(Key('gridItem3')));
     final item4LgRect = tester.getRect(find.byKey(Key('gridItem4')));
-    
+
     expect(item1LgRect.left < item2LgRect.left, true);
     expect(item2LgRect.left < item3LgRect.left, true);
     expect(item3LgRect.left < item4LgRect.left, true);
     expect(item1LgRect.top == item2LgRect.top, true);
     expect(item2LgRect.top == item3LgRect.top, true);
     expect(item3LgRect.top == item4LgRect.top, true);
-    
+
     // Test orientation
     setOrientation(tester, Orientation.landscape);
     await tester.pumpAndSettle();
-    
+
     // In landscape, the breakpoint might be bumped up
     final breakpointText = find.textContaining('Current Breakpoint:');
     expect(breakpointText, findsOneWidget);
-    
+
     resetScreenSize(tester);
   });
 }

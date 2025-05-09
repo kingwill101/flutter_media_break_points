@@ -40,7 +40,7 @@
 ///    - Utilities for customizing the library's behavior
 ///
 /// Example usage:
-/// 
+///
 /// // Check current breakpoint
 /// if (context.isSmall) {
 ///   // Use mobile layout
@@ -89,7 +89,7 @@
 ///   md: (context, _) => TabletLayout(),
 ///   lg: (context, _) => DesktopLayout(),
 /// )
-/// 
+///
 library media_break_points;
 
 export 'src/media_query.dart';

@@ -14,7 +14,7 @@ typedef ResponsiveLayoutWidgetBuilder = Widget Function(
 /// instead of a map of widgets, which can be more flexible in some cases.
 ///
 /// Example:
-/// 
+///
 /// ResponsiveLayoutBuilder(
 ///   xs: (context, _) => MobileLayout(),
 ///   sm: (context, _) => MobileLayout(),
@@ -23,26 +23,26 @@ typedef ResponsiveLayoutWidgetBuilder = Widget Function(
 ///   xl: (context, _) => DesktopLayout(),
 ///   xxl: (context, _) => DesktopLayout(),
 /// )
-/// 
+///
 class ResponsiveLayoutBuilder extends StatelessWidget {
   /// Builder for extra small screens.
   final ResponsiveLayoutWidgetBuilder? xs;
-  
+
   /// Builder for small screens.
   final ResponsiveLayoutWidgetBuilder? sm;
-  
+
   /// Builder for medium screens.
   final ResponsiveLayoutWidgetBuilder? md;
-  
+
   /// Builder for large screens.
   final ResponsiveLayoutWidgetBuilder? lg;
-  
+
   /// Builder for extra large screens.
   final ResponsiveLayoutWidgetBuilder? xl;
-  
+
   /// Builder for extra extra large screens.
   final ResponsiveLayoutWidgetBuilder? xxl;
-  
+
   /// Default builder to use if no specific builder is provided for the current breakpoint.
   final ResponsiveLayoutWidgetBuilder? defaultBuilder;
 
@@ -65,14 +65,14 @@ class ResponsiveLayoutBuilder extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         final breakpoint = context.breakPoint;
-        
+
         // Try to find a builder for the current breakpoint
         final builder = _getBuilderForBreakpoint(breakpoint);
-        
+
         if (builder != null) {
           return builder(context, breakpoint);
         }
-        
+
         // If no builder is found and no default builder is provided, return an empty container
         return defaultBuilder != null
             ? defaultBuilder!(context, breakpoint)
@@ -80,9 +80,10 @@ class ResponsiveLayoutBuilder extends StatelessWidget {
       },
     );
   }
-  
+
   /// Gets the appropriate builder for the given breakpoint.
-  ResponsiveLayoutWidgetBuilder? _getBuilderForBreakpoint(BreakPoint breakpoint) {
+  ResponsiveLayoutWidgetBuilder? _getBuilderForBreakpoint(
+      BreakPoint breakpoint) {
     switch (breakpoint) {
       case BreakPoint.xs:
         return xs;

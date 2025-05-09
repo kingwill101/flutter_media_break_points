@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+void setPhysicalSize(WidgetTester tester, double width, double height) {
+  final dpi = tester.view.devicePixelRatio;
+  tester.view.physicalSize = Size(width * dpi, height * dpi);
+}
+
 /// Sets the screen size for testing.
 ///
 /// This function adjusts the physical size of the test environment
@@ -22,12 +27,14 @@ void resetScreenSize(WidgetTester tester) {
 void setOrientation(WidgetTester tester, Orientation orientation) {
   final dpi = tester.view.devicePixelRatio;
   final currentWidth = tester.view.physicalSize.width / dpi;
-  
+
   if (orientation == Orientation.portrait) {
     // For portrait, height > width
-    tester.view.physicalSize = Size(currentWidth * dpi, (currentWidth * 1.5) * dpi);
+    tester.view.physicalSize =
+        Size(currentWidth * dpi, (currentWidth * 1.5) * dpi);
   } else {
     // For landscape, width > height
-    tester.view.physicalSize = Size((currentWidth * 1.5) * dpi, currentWidth * dpi);
+    tester.view.physicalSize =
+        Size((currentWidth * 1.5) * dpi, currentWidth * dpi);
   }
 }

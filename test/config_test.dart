@@ -4,7 +4,8 @@ import 'package:media_break_points/media_break_points.dart';
 import 'shared.dart';
 
 void main() {
-  testWidgets('MediaBreakPointsConfig allows custom breakpoints', (WidgetTester tester) async {
+  testWidgets('MediaBreakPointsConfig allows custom breakpoints',
+      (WidgetTester tester) async {
     // Define custom breakpoints
     final customBreakpoints = {
       BreakPoint.xs: (0.0, 400.0),
@@ -71,7 +72,9 @@ void main() {
     resetScreenSize(tester);
   });
 
-  testWidgets('MediaBreakPointsConfig considerOrientation affects breakpoint detection', (WidgetTester tester) async {
+  testWidgets(
+      'MediaBreakPointsConfig considerOrientation affects breakpoint detection',
+      (WidgetTester tester) async {
     // Initialize with orientation consideration
     initMediaBreakPoints(
       MediaBreakPointsConfig(

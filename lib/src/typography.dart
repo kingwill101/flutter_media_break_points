@@ -9,7 +9,7 @@ class ResponsiveTextStyle {
   /// Creates a responsive text style that adapts to different screen sizes.
   ///
   /// Example:
-  /// 
+  ///
   /// Text(
   ///   'Hello, world!',
   ///   style: ResponsiveTextStyle.of(
@@ -19,7 +19,7 @@ class ResponsiveTextStyle {
   ///     lg: TextStyle(fontSize: 24),
   ///   ),
   /// )
-  /// 
+  ///
   static TextStyle of(
     BuildContext context, {
     TextStyle? xs,
@@ -45,7 +45,7 @@ class ResponsiveTextStyle {
   /// Creates a responsive font size that adapts to different screen sizes.
   ///
   /// Example:
-  /// 
+  ///
   /// Text(
   ///   'Hello, world!',
   ///   style: TextStyle(
@@ -57,7 +57,7 @@ class ResponsiveTextStyle {
   ///     ),
   ///   ),
   /// )
-  /// 
+  ///
   static double fontSize(
     BuildContext context, {
     double? xs,
