@@ -118,6 +118,21 @@ class AdaptiveContainer extends StatefulWidget {
   /// Each entry in this map defines a layout for a specific breakpoint.
   final Map<BreakPoint, AdaptiveSlot> configs;
 
+  /// A map of semantic adaptive sizes to layout slots.
+  final Map<AdaptiveSize, AdaptiveSlot> adaptiveConfigs;
+
+  /// Slot used for compact layouts.
+  final AdaptiveSlot? compact;
+
+  /// Slot used for medium layouts.
+  final AdaptiveSlot? medium;
+
+  /// Slot used for expanded layouts.
+  final AdaptiveSlot? expanded;
+
+  /// Fallback slot used when no breakpoint or semantic slot matches.
+  final AdaptiveSlot? defaultSlot;
+
   /// The duration of the transition animation in milliseconds.
   ///
   /// This is only used if [enableAnimation] is true.
@@ -134,6 +149,18 @@ class AdaptiveContainer extends StatefulWidget {
   /// If false, layouts will switch instantly.
   final bool enableAnimation;
 
+  /// Whether to resolve the active layout from parent constraints.
+  final bool useContainerConstraints;
+
+  /// Whether orientation should affect container-based breakpoint resolution.
+  final bool considerOrientation;
+
+  /// Whether animations should be keyed by semantic size instead of breakpoint.
+  final bool animateOnAdaptiveSize;
+
+  /// Controls how missing breakpoint slots are resolved.
+  final ResponsiveResolveMode resolveMode;
+
   /// Creates an adaptive container.
   ///
   /// The [configs] parameter defines the layouts for different breakpoints.
@@ -143,9 +170,18 @@ class AdaptiveContainer extends StatefulWidget {
   const AdaptiveContainer(
       {Key? key,
       this.configs = const {},
+      this.adaptiveConfigs = const {},
+      this.compact,
+      this.medium,
+      this.expanded,
+      this.defaultSlot,
       this.animationDuration = 0,
       this.enableAnimation = false,
-      this.transitionBuilder})
+      this.transitionBuilder,
+      this.useContainerConstraints = false,
+      this.considerOrientation = false,
+      this.animateOnAdaptiveSize = false,
+      this.resolveMode = ResponsiveResolveMode.cascadeDown})
       : super(key: key);
 
   @override
@@ -153,31 +189,37 @@ class AdaptiveContainer extends StatefulWidget {
 }
 
 class _AdaptiveContainerState extends State<AdaptiveContainer> {
-  /// Checks if a configuration exists for the given breakpoint.
-  bool hasConfig(BreakPoint breakPoint) =>
-      widget.configs.containsKey(breakPoint);
-
-  /// Gets the configuration for the given breakpoint.
-  ///
-  /// If no configuration exists for the breakpoint, returns an empty slot.
-  AdaptiveSlot config(BreakPoint breakPoint) =>
-      widget.configs[breakPoint] != null
-          ? widget.configs[breakPoint]!
-          : AdaptiveSlot(builder: (_) => SizedBox.shrink());
-
   @override
   Widget build(BuildContext context) {
-    // Use LayoutBuilder to rebuild the widget when the screen size changes
     return LayoutBuilder(
       builder: (context, constraints) {
-        var child = hasConfig(context.breakPoint)
-            ? config(context.breakPoint)
-            : SizedBox.shrink();
+        final data = widget.useContainerConstraints
+            ? breakPointDataForSize(
+                Size(
+                  constraints.maxWidth.isFinite
+                      ? constraints.maxWidth
+                      : MediaQuery.of(context).size.width,
+                  constraints.maxHeight.isFinite
+                      ? constraints.maxHeight
+                      : MediaQuery.of(context).size.height,
+                ),
+                considerOrientation: widget.considerOrientation,
+              )
+            : context.breakPointData;
+        final slot = _slotForData(data);
+        final resolvedChild = slot?.build(context) ?? const SizedBox.shrink();
 
         if (!widget.enableAnimation) {
-          return child;
+          return resolvedChild;
         }
-        // Use AnimatedSwitcher to animate the transition between widgets
+
+        final child = KeyedSubtree(
+          key: ValueKey(
+            widget.animateOnAdaptiveSize ? data.adaptiveSize : data.breakPoint,
+          ),
+          child: resolvedChild,
+        );
+
         return AnimatedSwitcher(
           duration: Duration(milliseconds: widget.animationDuration),
           child: child,
@@ -190,5 +232,40 @@ class _AdaptiveContainerState extends State<AdaptiveContainer> {
         );
       },
     );
+  }
+
+  AdaptiveSlot? _slotForData(BreakPointData data) {
+    final exact = widget.configs[data.breakPoint];
+    if (exact != null) {
+      return exact;
+    }
+
+    if (widget.resolveMode == ResponsiveResolveMode.cascadeDown) {
+      final cascaded = _cascadeBreakPointSlot(data.breakPoint);
+      if (cascaded != null) {
+        return cascaded;
+      }
+    }
+
+    return _slotForAdaptiveSize(data.adaptiveSize) ?? widget.defaultSlot;
+  }
+
+  AdaptiveSlot? _cascadeBreakPointSlot(BreakPoint breakPoint) {
+    for (var index = breakPoint.index; index >= 0; index--) {
+      final slot = widget.configs[BreakPoint.values[index]];
+      if (slot != null) {
+        return slot;
+      }
+    }
+    return null;
+  }
+
+  AdaptiveSlot? _slotForAdaptiveSize(AdaptiveSize adaptiveSize) {
+    return widget.adaptiveConfigs[adaptiveSize] ??
+        switch (adaptiveSize) {
+          AdaptiveSize.compact => widget.compact,
+          AdaptiveSize.medium => widget.medium,
+          AdaptiveSize.expanded => widget.expanded,
+        };
   }
 }

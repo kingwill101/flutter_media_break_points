@@ -84,20 +84,24 @@ void main() {
     bool expectedIsMobileOnSmallScreen;
     bool expectedIsTabletOnMediumScreen;
     bool expectedHasTouch;
+    bool expectedSupportsHover;
 
     if (kIsWeb) {
       expectedIsMobileOnSmallScreen = false;
       expectedIsTabletOnMediumScreen = false;
       expectedHasTouch = false;
+      expectedSupportsHover = true;
     } else if (Platform.isAndroid || Platform.isIOS) {
       expectedIsMobileOnSmallScreen = true;
       expectedIsTabletOnMediumScreen = true;
       expectedHasTouch = true;
+      expectedSupportsHover = false;
     } else {
       // On desktop platforms
       expectedIsMobileOnSmallScreen = false;
       expectedIsTabletOnMediumScreen = false;
       expectedHasTouch = false;
+      expectedSupportsHover = true;
     }
 
     // Test extra small screen
@@ -107,6 +111,7 @@ void main() {
     expect(isTablet,
         !expectedIsMobileOnSmallScreen && expectedIsTabletOnMediumScreen);
     expect(hasTouch, expectedHasTouch);
+    expect(supportsHover, expectedSupportsHover);
 
     // Test medium screen
     setScreenSize(tester, BreakPoint.md.start);
@@ -114,6 +119,7 @@ void main() {
     expect(isMobile, false);
     expect(isTablet, expectedIsTabletOnMediumScreen);
     expect(hasTouch, expectedHasTouch);
+    expect(supportsHover, expectedSupportsHover);
 
     resetScreenSize(tester);
   });

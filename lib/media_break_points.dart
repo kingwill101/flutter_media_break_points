@@ -1,103 +1,78 @@
-/// A comprehensive library for responsive design in Flutter applications.
+/// A responsive design toolkit for Flutter applications.
 ///
-/// This library provides a set of tools to create responsive UIs that adapt
-/// to different screen sizes and device types. It follows standard responsive
-/// design patterns with breakpoints for extra small (xs), small (sm), medium (md),
-/// large (lg), extra large (xl), and extra extra large (xxl) screen sizes.
+/// The package is organized around a small core:
 ///
-/// The library consists of several components:
+/// - Core engine: breakpoint data, semantic width and height classes,
+///   responsive values, fluid interpolation, container-aware builders,
+///   spacing, typography, visibility, and debug overlays.
+/// - Core primitives: reusable spatial behaviors such as panes, inspectors,
+///   sections, action bars, forms, clusters, and responsive grids.
+/// - Core shells and surfaces: the small set of higher-level APIs that form
+///   the main package story, such as [AdaptiveScaffold],
+///   [AdaptiveWorkspaceShell], [AdaptiveDataView], [AdaptiveFilterLayout],
+///   [AdaptiveResultBrowser], [AdaptiveDocumentView], and [AdaptiveDiffView].
+/// Showcase patterns are intentionally split into
+/// `package:media_break_points/patterns.dart` so the core package surface stays
+/// focused on layout primitives and reusable adaptive shells.
 ///
-/// 1. Media Query utilities (`media_query.dart`):
-///    - Functions to determine the current screen size breakpoint
-///    - Extensions on BuildContext for easy breakpoint checking
-///    - Utilities to apply different values based on screen size
+/// Typical adoption flow:
 ///
-/// 2. Adaptive widgets (`adaptive.dart`):
-///    - Widgets that display different content based on screen size
-///    - Support for animated transitions between layouts
-///    - Utilities for creating responsive values
-///
-/// 3. Responsive Grid System (`grid.dart`):
-///    - A flexible grid layout that adapts to different screen sizes
-///    - Support for different column spans at different breakpoints
-///
-/// 4. Responsive Spacing (`spacing.dart`):
-///    - Utilities for creating responsive paddings, margins, and gaps
-///
-/// 5. Responsive Typography (`typography.dart`):
-///    - Utilities for creating text styles that adapt to different screen sizes
-///
-/// 6. Device Detection (`device.dart`):
-///    - Utilities for detecting device types and capabilities
-///
-/// 7. Responsive Visibility (`visibility.dart`):
-///    - Widgets for showing or hiding content based on screen size
-///
-/// 8. Responsive Layout Builder (`layout_builder.dart`):
-///    - A flexible builder for creating different layouts at different breakpoints
-///
-/// 9. Configuration (`config.dart`):
-///    - Utilities for customizing the library's behavior
+/// 1. Start with [BreakPointData], [ResponsiveValue], and
+///    [ResponsiveContainerBuilder].
+/// 2. Compose with primitives such as [AdaptivePane], [AdaptiveSections],
+///    [AdaptiveInspectorLayout], and [AutoResponsiveGrid].
+/// 3. Add shells and surfaces such as [AdaptiveScaffold],
+///    [AdaptiveWorkspaceShell], or [AdaptiveResultBrowser] where they fit.
 ///
 /// Example usage:
 ///
-/// // Check current breakpoint
-/// if (context.isSmall) {
-///   // Use mobile layout
-/// } else if (context.isLarge) {
-///   // Use desktop layout
-/// }
-///
-/// // Apply different values based on screen size
-/// final padding = valueFor<EdgeInsets>(
-///   context,
-///   xs: EdgeInsets.all(8),
-///   md: EdgeInsets.all(16),
-///   lg: EdgeInsets.all(24),
+/// ```dart
+/// final gap = context.responsive<double>(
+///   compact: 12,
+///   medium: 20,
+///   expanded: 28,
 /// );
 ///
-/// // Use responsive grid
-/// ResponsiveGrid(
-///   children: [
-///     ResponsiveGridItem(
-///       xs: 12, // Full width on extra small screens
-///       sm: 6,  // Half width on small screens
-///       md: 4,  // One-third width on medium screens
-///       child: Container(color: Colors.red),
-///     ),
-///     ResponsiveGridItem(
-///       xs: 12,
-///       sm: 6,
-///       md: 4,
-///       child: Container(color: Colors.blue),
-///     ),
-///   ],
-/// )
+/// ResponsiveContainerBuilder(
+///   builder: (context, data) {
+///     if (data.isCompact) {
+///       return const CompactPane();
+///     }
 ///
-/// // Use responsive visibility
-/// ResponsiveVisibility(
-///   visibleWhen: {
-///     Condition.largerThan(name: BreakPoint.sm): true,
+///     return const SplitPane();
 ///   },
-///   replacement: MobileMenu(),
-///   child: DesktopMenu(),
-/// )
-///
-/// // Use responsive layout builder
-/// ResponsiveLayoutBuilder(
-///   xs: (context, _) => MobileLayout(),
-///   md: (context, _) => TabletLayout(),
-///   lg: (context, _) => DesktopLayout(),
-/// )
-///
+/// );
+/// ```
 library media_break_points;
 
+// Core engine.
 export 'src/media_query.dart';
+export 'src/fluid.dart';
 export 'src/adaptive.dart';
+export 'src/cluster.dart';
 export 'src/grid.dart';
 export 'src/spacing.dart';
 export 'src/typography.dart';
 export 'src/device.dart';
 export 'src/visibility.dart';
 export 'src/layout_builder.dart';
+export 'src/container_layout.dart';
+export 'src/debug.dart';
 export 'src/config.dart';
+
+// Core primitives.
+export 'src/action_bar.dart';
+export 'src/adaptive_form.dart';
+export 'src/priority_layout.dart';
+export 'src/inspector_layout.dart';
+export 'src/pane.dart';
+export 'src/sections.dart';
+
+// Core shells and surfaces.
+export 'src/adaptive_scaffold.dart';
+export 'src/workspace_shell.dart';
+export 'src/data_view.dart';
+export 'src/filter_layout.dart';
+export 'src/result_browser.dart';
+export 'src/document_view.dart';
+export 'src/diff_view.dart';

@@ -41,7 +41,7 @@ void main() {
         },
       ),
     ));
-    addTearDown(tester.view.clearPhysicalSizeTestValue);
+    addTearDown(() => resetScreenSize(tester));
   });
 
   testWidgets('sm', (WidgetTester tester) async {
@@ -61,7 +61,7 @@ void main() {
         },
       ),
     ));
-    addTearDown(tester.view.clearPhysicalSizeTestValue);
+    addTearDown(() => resetScreenSize(tester));
   });
 
   testWidgets('md', (WidgetTester tester) async {
@@ -81,7 +81,7 @@ void main() {
         },
       ),
     ));
-    addTearDown(tester.view.clearPhysicalSizeTestValue);
+    addTearDown(() => resetScreenSize(tester));
   });
 
   testWidgets('lg', (WidgetTester tester) async {
@@ -101,7 +101,7 @@ void main() {
         },
       ),
     ));
-    addTearDown(tester.view.clearPhysicalSizeTestValue);
+    addTearDown(() => resetScreenSize(tester));
   });
   testWidgets('xl', (WidgetTester tester) async {
     EdgeInsets? _g;
@@ -120,7 +120,7 @@ void main() {
         },
       ),
     ));
-    addTearDown(tester.view.clearPhysicalSizeTestValue);
+    addTearDown(() => resetScreenSize(tester));
   });
 
   testWidgets('xxl', (WidgetTester tester) async {
@@ -138,7 +138,7 @@ void main() {
         },
       ),
     ));
-    addTearDown(tester.view.clearPhysicalSizeTestValue);
+    addTearDown(() => resetScreenSize(tester));
   });
 
   testWidgets('default value test', (WidgetTester tester) async {
@@ -155,6 +155,6 @@ void main() {
         },
       ),
     ));
-    addTearDown(tester.view.clearPhysicalSizeTestValue);
+    addTearDown(() => resetScreenSize(tester));
   });
 }

@@ -113,4 +113,62 @@ void main() {
 
     resetScreenSize(tester);
   });
+
+  testWidgets('AdaptiveContainer can resolve semantic adaptive slots',
+      (WidgetTester tester) async {
+    setScreenSize(tester, BreakPoint.md.start);
+
+    await tester.pumpWidget(
+      MaterialApp(
+        home: AdaptiveContainer(
+          compact: const AdaptiveSlot(
+            builder: _buildCompactText,
+          ),
+          medium: const AdaptiveSlot(
+            builder: _buildMediumText,
+          ),
+          expanded: const AdaptiveSlot(
+            builder: _buildExpandedText,
+          ),
+        ),
+      ),
+    );
+
+    expect(find.text('MEDIUM'), findsOneWidget);
+    resetScreenSize(tester);
+  });
+
+  testWidgets('AdaptiveContainer can resolve from container constraints',
+      (WidgetTester tester) async {
+    setScreenSize(tester, BreakPoint.xxl.start);
+
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Center(
+          child: SizedBox(
+            width: 320,
+            child: AdaptiveContainer(
+              useContainerConstraints: true,
+              compact: const AdaptiveSlot(
+                builder: _buildCompactText,
+              ),
+              expanded: const AdaptiveSlot(
+                builder: _buildExpandedText,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+
+    expect(find.text('COMPACT'), findsOneWidget);
+    expect(find.text('EXPANDED'), findsNothing);
+    resetScreenSize(tester);
+  });
 }
+
+Widget _buildCompactText(BuildContext context) => const Text('COMPACT');
+
+Widget _buildMediumText(BuildContext context) => const Text('MEDIUM');
+
+Widget _buildExpandedText(BuildContext context) => const Text('EXPANDED');
