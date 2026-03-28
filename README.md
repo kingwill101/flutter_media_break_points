@@ -9,12 +9,29 @@ grids.
 
 ![Adaptive Container demo](example/adaptive_container.gif)
 
+## Live Demo
+
+The example catalog can be published to GitHub Pages at:
+
+- <https://kingwill101.github.io/flutter_media_break_points/>
+
+This repository includes a GitHub Actions workflow that builds `example/` as a
+Flutter web app and publishes the generated site to the `gh-pages` branch on
+pushes to `master`.
+
+To use the branch-based deploy:
+
+- Add a repository secret named `GH_PAGES_TOKEN` with permission to push to
+  this repository.
+- In GitHub Pages settings, choose `Deploy from a branch`, then select
+  `gh-pages` and `/(root)`.
+
 ## Installation
 
 Add this to `pubspec.yaml`:
 
 ```yaml
-media_break_points: ^1.7.0
+media_break_points: ^2.0.0
 ```
 
 Import it:

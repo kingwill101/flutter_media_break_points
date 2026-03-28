@@ -1,0 +1,90 @@
+name: Deploy Demo to GitHub Pages
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Resolve demo base path
+        id: base-path
+        shell: bash
+        run: |
+          owner="${GITHUB_REPOSITORY_OWNER}"
+          repo="${GITHUB_REPOSITORY#*/}"
+
+          if [[ "${repo}" == "${owner}.github.io" ]]; then
+            echo "base_href=/" >> "${GITHUB_OUTPUT}"
+          else
+            echo "base_href=/${repo}/" >> "${GITHUB_OUTPUT}"
+          fi
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Enable Flutter web
+        run: flutter config --enable-web
+
+      - name: Install example dependencies
+        working-directory: example
+        run: flutter pub get
+
+      - name: Build demo
+        working-directory: example
+        run: flutter build web --release --base-href "${{ steps.base-path.outputs.base_href }}"
+
+      - name: Add .nojekyll
+        run: touch example/build/web/.nojekyll
+
+      - name: Publish to gh-pages
+        env:
+          GH_PAGES_TOKEN: ${{ secrets.GH_PAGES_TOKEN }}
+        shell: bash
+        run: |
+          if [[ -z "${GH_PAGES_TOKEN}" ]]; then
+            echo "GH_PAGES_TOKEN is required to push the built demo to gh-pages." >&2
+            exit 1
+          fi
+
+          repo_url="https://x-access-token:${GH_PAGES_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          worktree_dir="$(mktemp -d)"
+
+          if git ls-remote --exit-code --heads "${repo_url}" gh-pages >/dev/null 2>&1; then
+            git clone --depth 1 --branch gh-pages "${repo_url}" "${worktree_dir}"
+          else
+            git clone --depth 1 "${repo_url}" "${worktree_dir}"
+            pushd "${worktree_dir}" >/dev/null
+            git switch --orphan gh-pages
+            find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
+            popd >/dev/null
+          fi
+
+          rsync -av --delete --exclude='.git/' example/build/web/ "${worktree_dir}/"
+
+          pushd "${worktree_dir}" >/dev/null
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          if [[ -n "$(git status --short)" ]]; then
+            git add -A
+            git commit -m "Deploy demo from ${GITHUB_SHA}"
+            git push origin gh-pages
+          else
+            echo "No demo changes to publish."
+          fi
+
+          popd >/dev/null
