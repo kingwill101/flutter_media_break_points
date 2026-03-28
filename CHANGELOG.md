@@ -1,4 +1,4 @@
-## [2.0.0-wip]
+## [2.0.0]
 
 - Expanded the package from breakpoint helpers into a broader adaptive layout toolkit.
 - Added container-aware responsive builders, fluid values, animated layout helpers,
