@@ -1,7 +1,9 @@
 name: media_break_points
-description: This package allows you to apply values depending on media breakpoint provided.
-version: 1.7.0
+description: Adaptive layout primitives and container-aware responsive builders for Flutter.
+version: 2.0.0-wip
 homepage: https://github.com/glenfordwilliams/flutter_media_break_points
+repository: https://github.com/glenfordwilliams/flutter_media_break_points
+issue_tracker: https://github.com/glenfordwilliams/flutter_media_break_points/issues
 
 environment:
   sdk: ">=3.0.0 <4.0.0"

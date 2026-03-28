@@ -1,3 +1,14 @@
+## [2.0.0-wip]
+
+- Expanded the package from breakpoint helpers into a broader adaptive layout toolkit.
+- Added container-aware responsive builders, fluid values, animated layout helpers,
+  new core primitives, and higher-level adaptive surfaces.
+- Breaking: split product-shaped showcase widgets out of the main library into
+  `package:media_break_points/patterns.dart` so `media_break_points.dart` stays
+  focused on the core engine, primitives, and adaptive shells.
+- Rebuilt the example app as a feature catalog and expanded test coverage across the
+  core library and showcase patterns.
+
 ## [1.7.0]
 
 - Improved documentation and README with clear examples for all features
